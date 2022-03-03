@@ -1,0 +1,150 @@
+
+.timer-container {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	height: 100%;
+	justify-content: center;
+}
+
+.timer-container > * {
+	margin-bottom: 20px;
+}
+
+.timer {
+	color: #5db075;
+	font-size: 35px;
+}
+
+button {
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+.cancel-btn {
+	background-color: #5db075;
+	color: white;
+	border-radius: 15px;
+	padding: 10px 20px;
+	font-weight: 500;
+}
+
+.cancel-btn:hover {
+	background-color: #80c56e;
+}
+
+.progress {
+	color: #a6a6a6;
+}
+
+.top-bar {
+	height: 25px;
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	padding: 5px 0;
+}
+
+.top-bar i {
+	color: #5db075;
+}
+
+.plant {
+	height: 150px;
+}
+
+.center-icons {
+	display: flex;
+}
+
+.top-button:hover i {
+	color: #80c56e;
+}
+
+.menu-icon {
+	margin-left: 20px;
+}
+
+.right-icon {
+	margin-right: 20px;
+}
+
+.tomato {
+	position: relative;
+	height: 250px;
+	width: 250px;
+}
+
+.base-timer__circle {
+	fill: none;
+	stroke: none;
+}
+
+.base-timer__path-elapsed {
+	stroke-width: 4px;
+	stroke: #e8e8e8;
+}
+
+.base-timer__path-remaining {
+	stroke: currentColor;
+	stroke-width: 4px;
+	stroke-linecap: round;
+
+	transform: rotate(90deg);
+	transform-origin: center;
+	transition: 1s linear all;
+	stroke-dasharray: 75 283;
+}
+
+.green-timer {
+	color: #5eb176;
+}
+
+.base-timer__svg {
+	transform: scaleX(-1);
+}
+
+.plant-container {
+	position: absolute;
+	height: 250px;
+	width: 250px;
+	top: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.center-icons .top-button {
+	margin-right: 7px;
+}
+
+.tag {
+	font-size: 12px;
+	border: 1px solid #5db075;
+	padding: 3px 5px;
+	border-radius: 12px; 
+	display: flex;
+	align-items: center;
+	margin-bottom: 5px;
+}
+
+.tag .tag-icon {
+	font-size: 7px;
+	color: #e66771;
+	margin-right: 3px;
+}
+
+.tag .tag-name {
+	color: #a6a6a6;
+	margin-right: 3px;
+}
+
+.footer {
+	display: flex;
+	justify-content: flex-end;
+	padding: 20px;
+}
