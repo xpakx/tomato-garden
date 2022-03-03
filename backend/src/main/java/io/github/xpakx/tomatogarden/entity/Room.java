@@ -30,5 +30,10 @@ public class Room {
     @JoinTable(name="room_user",
             joinColumns={@JoinColumn(name="room_id")},
             inverseJoinColumns={@JoinColumn(name="user_account_id")})
-    Set<UserAccount> users;
+    Set<UserAccount> guests;
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "user_account_id")
+    private UserAccount owner;
 }

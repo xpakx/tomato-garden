@@ -40,4 +40,9 @@ public class Pomodoro {
     @OneToOne
     @JoinColumn(name = "room_id")
     private Room room;
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "user_account_id")
+    private UserAccount owner;
 }
