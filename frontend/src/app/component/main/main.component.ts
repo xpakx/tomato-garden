@@ -7,7 +7,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class MainComponent implements OnInit {
   public minutes: number = 120;
-  public current: number = 30*60;
+  public current: number = 110*60;
   @Output() menuEvent = new EventEmitter<boolean>();
 
   constructor() { }
@@ -30,6 +30,16 @@ export class MainComponent implements OnInit {
 
   get dashStyle(): String {
     return ((this.remaining/(this.minutes*60)) * 283).toFixed(0) + ' 283';
+  }
+
+  get stage(): String {
+    let fraction = this.fraction;
+    if(fraction > 0.90) { return "tomato5"; }
+    if(fraction > 0.75) { return "tomato4"; }
+    if(fraction > 0.50) { return "tomato3"; }
+    if(fraction > 0.25) { return "tomato2"; }
+    if(fraction > 0.10) { return "tomato1"; }
+    return "tomato0";
   }
 
   ngOnInit(): void {

@@ -1,60 +1,62 @@
-<div class="top-bar">
-    <div class="menu-icon">
-        <button class="top-button" (click)="switchMenu()">
-          <i class="fa fa-bars"></i>
-        </button>
-    </div>
-    <div class="center-icons">
-        <button class="top-button">
-          <i class="fa fa-leaf"></i>
-        </button>
-        <button class="top-button">
-          <i class="fa fa-user"></i>
-        </button>
-    </div>
-    <div class="right-icon">
-        <button class="top-button">
-          <i class="fa fa-question"></i>
-        </button>
-    </div>
-</div>
-
-<div class="timer-container">
-  <div class="tomato">
-      <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-          <g class="base-timer__circle">
-              <circle class="base-timer__path-elapsed" cx="50" cy="50" r="45" />
-              <path
-              id="base-timer-path-remaining"
-              [ngStyle]="{'stroke-dasharray': dashStyle}"
-              class="base-timer__path-remaining green-timer"
-              d="
-                M 50, 50
-                m -45, 0
-                a 45,45 0 1,0 90,0
-                a 45,45 0 1,0 -90,0
-              "
-            ></path>
-          </g>
-      </svg>
-      <div class="plant-container">
-          <img class="plant" src="../../../assets/tomato2.svg" />
+<div class="main-container">
+  <div class="top-bar">
+      <div class="menu-icon">
+          <button class="top-button" (click)="switchMenu()">
+            <i class="fa fa-bars"></i>
+          </button>
+      </div>
+      <div class="center-icons">
+          <button class="top-button">
+            <i class="fa fa-leaf"></i>
+          </button>
+          <button class="top-button">
+            <i class="fa fa-user"></i>
+          </button>
+      </div>
+      <div class="right-icon">
+          <button class="top-button">
+            <i class="fa fa-question"></i>
+          </button>
       </div>
   </div>
-  <div class="timer">
-      {{ minutesLeft | number:'2.0-0' }}:{{ secondsLeft | number:'2.0-0' }}
-  </div>
-  <div class="progress">
-      {{ fraction | percent:'1.0-0'}} spent
-  </div>
-  <div class="buttons">
-      <button class="cancel-btn">Cancel</button>
-  </div>
-</div>
 
-<div class="footer">
-  <div class="tag">
-      <span class="tag-icon"><i class="fa fa-circle"></i></span> 
-      <span class="tag-name">Work</span>
+  <div class="timer-container">
+    <div class="tomato">
+        <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <g class="base-timer__circle">
+                <circle class="base-timer__path-elapsed" cx="50" cy="50" r="45" />
+                <path
+                id="base-timer-path-remaining"
+                [ngStyle]="{'stroke-dasharray': dashStyle}"
+                class="base-timer__path-remaining green-timer"
+                d="
+                  M 50, 50
+                  m -45, 0
+                  a 45,45 0 1,0 90,0
+                  a 45,45 0 1,0 -90,0
+                "
+              ></path>
+            </g>
+        </svg>
+        <div class="plant-container">
+            <img class="plant" src="../../../assets/{{stage}}.svg" />
+        </div>
+    </div>
+    <div class="timer">
+        {{ minutesLeft | number:'2.0-0' }}:{{ secondsLeft | number:'2.0-0' }}
+    </div>
+    <div class="progress">
+        {{ fraction | percent:'1.0-0'}} spent
+    </div>
+    <div class="buttons">
+        <button class="cancel-btn">Cancel</button>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="tag">
+        <span class="tag-icon"><i class="fa fa-circle"></i></span> 
+        <span class="tag-name">Work</span>
+    </div>
   </div>
 </div>
