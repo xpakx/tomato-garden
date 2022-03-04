@@ -1,14 +1,12 @@
 package io.github.xpakx.tomatogarden.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -22,4 +20,9 @@ public class Tag {
 
     private String name;
     private String color;
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "user_account_id")
+    private UserAccount owner;
 }
