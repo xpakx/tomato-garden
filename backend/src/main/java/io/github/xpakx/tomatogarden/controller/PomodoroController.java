@@ -8,10 +8,7 @@ import io.github.xpakx.tomatogarden.service.PomodoroService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
@@ -26,8 +23,8 @@ public class PomodoroController {
         );
     }
 
-    @PostMapping("/{userId}/pomodoro/{pomodoroId}/stop")
-    public ResponseEntity<Pomodoro> start(@PathVariable Long userId, @PathVariable Long pomodoroId) {
+    @PutMapping("/{userId}/pomodoro/{pomodoroId}/stop")
+    public ResponseEntity<Pomodoro> stop(@PathVariable Long userId, @PathVariable Long pomodoroId) {
         return new ResponseEntity<>(
                 pomodoroService.stopPomodoro(userId, pomodoroId),
                 HttpStatus.OK
