@@ -25,4 +25,12 @@ public class PomodoroController {
                 HttpStatus.OK
         );
     }
+
+    @PostMapping("/{userId}/pomodoro/{pomodoroId}/stop")
+    public ResponseEntity<Pomodoro> start(@PathVariable Long userId, @PathVariable Long pomodoroId) {
+        return new ResponseEntity<>(
+                pomodoroService.stopPomodoro(userId, pomodoroId),
+                HttpStatus.OK
+        );
+    }
 }
