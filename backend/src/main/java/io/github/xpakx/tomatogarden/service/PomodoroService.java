@@ -20,7 +20,14 @@ public class PomodoroService {
     private final UserRepository userRepository;
     private final TagRepository tagRepository;
 
-    public Pomodoro startNewPomodoro(StartRequest request, Long userId) {
+    private Long getIdByUsername(String username) {
+        return userRepository
+                .findByUsername(username)
+                .orElseThrow()
+                .getId();
+    }
+    public Pomodoro startNewPomodoro(StartRequest request, String username) {
+        Long userId = getIdByUsername(username);
         Pomodoro pomodoro = new Pomodoro();
         pomodoro.setDeepFocus(request.isDeepFocus());
         pomodoro.setCollaborative(request.isCollaborative());
@@ -40,7 +47,8 @@ public class PomodoroService {
         return  pomodoroRepository.save(pomodoro);
     }
 
-    public Pomodoro stopPomodoro(Long userId, Long pomodoroId) {
+    public Pomodoro stopPomodoro(String username, Long pomodoroId) {
+        Long userId = getIdByUsername(username);
         LocalDateTime now = LocalDateTime.now();
         Pomodoro pomodoro = pomodoroRepository.findByOwnerIdAndId(userId, pomodoroId)
                 .orElseThrow(() -> new PomodoroNotFoundException("Pomodoro not found!"));

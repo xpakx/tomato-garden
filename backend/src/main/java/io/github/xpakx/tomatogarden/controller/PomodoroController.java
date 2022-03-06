@@ -8,6 +8,7 @@ import io.github.xpakx.tomatogarden.service.PomodoroService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,18 +16,20 @@ import org.springframework.web.bind.annotation.*;
 public class PomodoroController {
     private final PomodoroService pomodoroService;
 
-    @PostMapping("/{userId}/pomodoro")
-    public ResponseEntity<Pomodoro> start(@RequestBody StartRequest request, @PathVariable Long userId) {
+    @PreAuthorize("#username.equals(authentication.principal.username)")
+    @PostMapping("/{username}/pomodoro")
+    public ResponseEntity<Pomodoro> start(@RequestBody StartRequest request, @PathVariable String username) {
         return new ResponseEntity<>(
-                pomodoroService.startNewPomodoro(request, userId),
+                pomodoroService.startNewPomodoro(request, username),
                 HttpStatus.OK
         );
     }
 
-    @PutMapping("/{userId}/pomodoro/{pomodoroId}/stop")
-    public ResponseEntity<Pomodoro> stop(@PathVariable Long userId, @PathVariable Long pomodoroId) {
+    @PreAuthorize("#username.equals(authentication.principal.username)")
+    @PutMapping("/{username}/pomodoro/{pomodoroId}/stop")
+    public ResponseEntity<Pomodoro> stop(@PathVariable String username, @PathVariable Long pomodoroId) {
         return new ResponseEntity<>(
-                pomodoroService.stopPomodoro(userId, pomodoroId),
+                pomodoroService.stopPomodoro(username, pomodoroId),
                 HttpStatus.OK
         );
     }

@@ -14,17 +14,17 @@ export class PomodoroService {
 
   constructor(private http: HttpClient) { }
 
-  private getUserId() {
-    return localStorage.getItem("user_id");
+  private getUsername() {
+    return localStorage.getItem("username");
   }
 
   public start(request: StartRequest):  Observable<Pomodoro> {
-    let userId  = this.getUserId();
-    return this.http.post<Pomodoro>(`${this.apiServerUrl}/${userId}/pomodoro`, request);
+    let username  = this.getUsername();
+    return this.http.post<Pomodoro>(`${this.apiServerUrl}/${username}/pomodoro`, request);
   }
 
   public stop(pomodoroId: number):  Observable<Pomodoro> {
-    let userId  = this.getUserId();
-    return this.http.put<Pomodoro>(`${this.apiServerUrl}/${userId}/pomodoro/${pomodoroId}/stop`, null);
+    let username  = this.getUsername();
+    return this.http.put<Pomodoro>(`${this.apiServerUrl}/${username}/pomodoro/${pomodoroId}/stop`, null);
   }
 }
