@@ -28,7 +28,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/assets/fontawesome-6.0.0/css/all.css",
+              "lib/fontawesome-6.0.0/css/all.css",
               "src/styles.css"
             ],
             "scripts": []

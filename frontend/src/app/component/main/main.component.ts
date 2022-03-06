@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { PomodoroService } from 'src/app/service/pomodoro.service';
 
 @Component({
   selector: 'app-main',
@@ -10,7 +11,7 @@ export class MainComponent implements OnInit {
   public current: number = 110*60;
   @Output() menuEvent = new EventEmitter<boolean>();
 
-  constructor() { }
+  constructor(private pomodoroService: PomodoroService) { }
 
   get remaining(): number {
     return this.minutes * 60 - this.current;
