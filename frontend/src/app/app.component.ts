@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'tomato-garden';
   hideMenu: boolean = true;
-  showLogin: boolean = true;
+  showLogin: boolean = false;
 
   switchMenu() {
     this.hideMenu = !this.hideMenu;
