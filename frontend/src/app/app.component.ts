@@ -8,8 +8,17 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'tomato-garden';
   hideMenu: boolean = true;
+  showLogin: boolean = true;
 
   switchMenu() {
     this.hideMenu = !this.hideMenu;
+  }
+
+  toLogIn() {
+    this.showLogin = true;
+  }
+
+  closeLogIn() {
+    this.showLogin = false;
   }
 }

@@ -5,16 +5,21 @@ import { AppComponent } from './app.component';
 import { MenuComponent } from './component/menu/menu.component';
 import { MainComponent } from './component/main/main.component';
 import { HttpClientModule } from '@angular/common/http';
+import { LoginModalComponent } from './component/login-modal/login-modal.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
-    MainComponent
+    MainComponent,
+    LoginModalComponent
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

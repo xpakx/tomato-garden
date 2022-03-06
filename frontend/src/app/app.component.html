@@ -8,3 +8,5 @@
     <app-main (menuEvent)="switchMenu()"></app-main>
   </div>  
 </div>
+
+<app-login-modal (closeEvent)="closeLogIn()" *ngIf="showLogin"></app-login-modal>

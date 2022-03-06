@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Pomodoro } from '../component/entity/pomodoro';
-import { StartRequest } from '../component/entity/start-request';
+import { Pomodoro } from '../entity/pomodoro';
+import { StartRequest } from '../entity/start-request';
 import { environment } from 'src/environments/environment';
 
 
