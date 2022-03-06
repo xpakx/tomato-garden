@@ -1,36 +1,47 @@
 <div class="modal-container">
     <div class="modal">
         <hr />
-        <h2>Login</h2>
-        <form id="form" [formGroup]="loginForm" *ngIf="!showRegister">
-            <div>
-                <label for="username">Login</label>
+        <h2>{{ title}}</h2>
+        <div class="card" *ngIf="!showRegister">
+            <form id="form" [formGroup]="loginForm">
+                <div>
+                    <label for="username">Username</label>
+                </div>
+                <input class="username" formControlName="username"/>
+    
+                <div class="password">
+                    <label for="password">Password</label>
+                </div>
+                <input class="password" formControlName="password" type="password" />
+            </form>
+            <div class="link-container">
+                Don't have an account? <a class="link" (click)="toRegister()">Sign up</a>
             </div>
-            <input class="username" formControlName="username"/>
-
-            <div class="password">
-                <label for="password">Password</label>
+        </div>
+        <div class="card" *ngIf="showRegister">
+            <form id="form" [formGroup]="registerForm">
+                <div>
+                    <label for="username">Username</label>
+                </div>
+                <input class="username" formControlName="username" />
+    
+                <div class="password">
+                    <label for="password">Password</label>
+                </div>
+                <input class="password" formControlName="password" type="password" />
+    
+                <div class="password">
+                    <label for="passwordRe">Repeat password</label>
+                </div>
+                <input class="passwordRe" formControlName="passwordRe" type="password" />
+            </form>
+            <div class="link-container">
+                Already signed up? <a class="link" (click)="toLogin()">Log in</a>
             </div>
-            <input class="password" formControlName="password" type="password" />
-        </form>
-        <form id="form" [formGroup]="registerForm" *ngIf="showRegister">
-            <div>
-                <label for="username">Username</label>
-            </div>
-            <input class="username" formControlName="username" />
-
-            <div class="password">
-                <label for="password">Password</label>
-            </div>
-            <input class="password" formControlName="password" type="password" />
-
-            <div class="password">
-                <label for="passwordRe">Repeat password</label>
-            </div>
-            <input class="passwordRe" formControlName="passwordRe" type="password" />
-        </form>
+        </div>
+        
         <div class="modal-buttons">
-            <button class="outlined-btn">Cancel</button>
+            <button class="outlined-btn" (click)="close()">Cancel</button>
             <button class="btn" [class.blocked]="!valid" (click)="ok()">Ok</button>
         </div>
     </div>

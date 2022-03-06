@@ -1,1 +1,17 @@
 @import '../css/modal.css';
+
+.link-container {
+    text-align: center;
+    color: #666;
+}
+
+.link{
+    cursor:pointer;
+    text-decoration: none;
+    color: #4cae4c;
+}
+
+.link:hover {
+    text-decoration: underline;
+    text-decoration-style: dotted;
+}

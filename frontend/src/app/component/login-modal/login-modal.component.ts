@@ -32,11 +32,19 @@ export class LoginModalComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  get valid() {
+  get valid(): boolean {
     if(this.showRegister) {
       return this.registerForm.valid;
     } else {
       return this.loginForm.valid;
+    }
+  }
+
+  get title(): string {
+    if(this.showRegister) {
+      return "Register";
+    } else {
+      return "Login";
     }
   }
 
@@ -49,6 +57,10 @@ export class LoginModalComponent implements OnInit {
     } else {
       this.logIn();
     }
+  }
+
+  close() {
+    this.closeEvent.emit(false);
   }
 
   toRegister(): void {
