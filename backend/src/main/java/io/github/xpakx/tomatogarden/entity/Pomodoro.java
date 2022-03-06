@@ -25,7 +25,7 @@ public class Pomodoro {
     private boolean succeed;
 
     private LocalDateTime start;
-    private LocalDateTime end;
+    private LocalDateTime finish;
     private Integer minutes;
 
     private boolean paused;

@@ -58,7 +58,7 @@ public class PomodoroService {
         } else {
             pomodoro.setFailed(true);
         }
-        pomodoro.setEnd(now);
+        pomodoro.setFinish(now);
 
         return  pomodoroRepository.save(pomodoro);
     }
