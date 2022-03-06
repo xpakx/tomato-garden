@@ -33,19 +33,11 @@ export class LoginModalComponent implements OnInit {
   }
 
   get valid(): boolean {
-    if(this.showRegister) {
-      return this.registerForm.valid;
-    } else {
-      return this.loginForm.valid;
-    }
+    return this.showRegister ? this.registerForm.valid : this.loginForm.valid;
   }
 
   get title(): string {
-    if(this.showRegister) {
-      return "Register";
-    } else {
-      return "Login";
-    }
+    return this.showRegister ? "Register" : "Login";
   }
 
   ok() {
@@ -79,14 +71,9 @@ export class LoginModalComponent implements OnInit {
         password: this.loginForm.controls.password.value
       }).subscribe(
         (response: Token) => {
-          localStorage.setItem("token", response.token);
-          localStorage.setItem("username", response.username);
-          this.closeEvent.emit(true);
+          this.saveCredentials(response);
         },
         (error: HttpErrorResponse) => {
-          if(error.status === 401) {
-            localStorage.removeItem("token");
-          }
           this.message = error.error.message;
           this.invalid = true;
         }
@@ -98,17 +85,15 @@ export class LoginModalComponent implements OnInit {
   }
 
   signUp(): void {
-    if(this.loginForm.valid) {
+    if(this.registerForm.valid) {
       this.invalid = false;
       this.service.register({
-        username: this.loginForm.controls.username.value,
-        password: this.loginForm.controls.password.value,
-        passwordRe: this.loginForm.controls.passwordRe.value,
+        username: this.registerForm.controls.username.value,
+        password: this.registerForm.controls.password.value,
+        passwordRe: this.registerForm.controls.passwordRe.value,
       }).subscribe(
         (response: Token) => {
-          localStorage.setItem("token", response.token);
-          localStorage.setItem("user_id", response.username);
-          this.closeEvent.emit(true);
+          this.saveCredentials(response);
         },
         (error: HttpErrorResponse) => {
           this.message = error.error.message;
@@ -119,5 +104,11 @@ export class LoginModalComponent implements OnInit {
       this.message = "Fields cannot be empty!";
       this.invalid = true;
     }
+  }
+
+  private saveCredentials(response: Token) {
+    localStorage.setItem("token", response.token);
+    localStorage.setItem("username", response.username);
+    this.closeEvent.emit(true);
   }
 }

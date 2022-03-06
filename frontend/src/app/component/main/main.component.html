@@ -45,11 +45,12 @@
     <div class="timer">
         {{ minutesLeft | number:'2.0-0' }}:{{ secondsLeft | number:'2.0-0' }}
     </div>
-    <div class="progress">
+    <div class="progress" *ngIf="started">
         {{ fraction | percent:'1.0-0'}} spent
     </div>
     <div class="buttons">
-        <button class="cancel-btn">Cancel</button>
+        <button class="cancel-btn" (click)="cancel()" *ngIf="started">Cancel</button>
+        <button class="cancel-btn" (click)="start()" *ngIf="!started">Start</button>
     </div>
   </div>
 

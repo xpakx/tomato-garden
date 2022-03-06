@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import {  Subscription, interval } from 'rxjs';
+import { Subscription, interval } from 'rxjs';
 import { PomodoroService } from 'src/app/service/pomodoro.service';
 
 @Component({
@@ -8,23 +8,33 @@ import { PomodoroService } from 'src/app/service/pomodoro.service';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
-  public minutes: number = 1;
-  public current: number = 1;
+  public minutes: number = 25;
+  public current: number = 0;
   private interval?: Subscription;
+  started: boolean = false;
   @Output() menuEvent = new EventEmitter<boolean>();
 
   constructor(private pomodoroService: PomodoroService) { }
 
   start(): void {
+    this.started = true;
+    this.current = 0;
     this.interval = interval(1000).subscribe((x) => this.step());
   }
 
   step(): void {
     if(this.current >= this.minutes*60) {
+      this.started = false;
       this.interval?.unsubscribe();
     } else {
       this.current += 1;
     }
+  }
+
+  cancel(): void {
+    this.started = false;
+    this.current = 0;
+    this.interval?.unsubscribe();
   }
 
   get remaining(): number {
@@ -58,11 +68,9 @@ export class MainComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.start();
   }
 
   switchMenu(): void {
     this.menuEvent.emit(true);
   }
-
 }
