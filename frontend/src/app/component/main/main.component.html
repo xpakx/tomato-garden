@@ -55,9 +55,12 @@
   </div>
 
   <div class="footer">
-    <div class="tag">
+    <button class="tag" (click)="openTag()">
         <span class="tag-icon"><i class="fa fa-circle"></i></span> 
         <span class="tag-name">Work</span>
-    </div>
+    </button>
   </div>
 </div>
+
+
+<app-tag (closeEvent)="closeTag()" *ngIf="showTag"></app-tag>

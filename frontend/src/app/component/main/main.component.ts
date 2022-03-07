@@ -104,4 +104,14 @@ export class MainComponent implements OnInit {
   switchMenu(): void {
     this.menuEvent.emit(true);
   }
+
+  showTag: boolean = false;
+
+  openTag() {
+    this.showTag = true;
+  }
+
+  closeTag() {
+    this.showTag = false;
+  }
 }

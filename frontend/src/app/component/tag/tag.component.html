@@ -1,0 +1,29 @@
+<div class="modal-container">
+    <div class="modal">
+        <hr />
+        <h2>Tags</h2>
+        <div class="card">
+            <div class="tag" *ngFor="let tag of tags">
+                {{ tag.name }}
+            </div>
+        </div>
+        <div class="card">
+            <form id="form" [formGroup]="form">
+                <div>
+                    <label for="name">Name</label>
+                </div>
+                <input class="name" formControlName="name"/>
+    
+                <div>
+                    <label for="color">Color</label>
+                </div>
+                <input class="color" formControlName="color" type="color" />
+                <button class="btn" [class.blocked]="form.invalid" (click)="add()">Add</button>
+            </form>
+        </div>
+        
+        <div class="modal-buttons">
+            <button class="outlined-btn" (click)="close()">Cancel</button>
+        </div>
+    </div>
+</div>
