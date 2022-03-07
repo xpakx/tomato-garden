@@ -19,7 +19,7 @@ public class TagController {
     public ResponseEntity<Tag> create(@RequestBody TagRequest request, @PathVariable String username) {
         return new ResponseEntity<>(
                 tagService.newTag(request, username),
-                HttpStatus.OK
+                HttpStatus.CREATED
         );
     }
 
@@ -28,6 +28,15 @@ public class TagController {
     public ResponseEntity<Tag> update(@RequestBody TagRequest request, @PathVariable String username, @PathVariable Long tagId) {
         return new ResponseEntity<>(
                 tagService.editTag(request, username, tagId),
+                HttpStatus.OK
+        );
+    }
+
+    @PreAuthorize("#username.equals(authentication.principal.username)")
+    @DeleteMapping("/{username}/tag/{tagId}")
+    public ResponseEntity<?> delete(@PathVariable String username, @PathVariable Long tagId) {
+        tagService.deleteTag(username, tagId);
+        return new ResponseEntity<>(
                 HttpStatus.OK
         );
     }

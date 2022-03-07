@@ -40,4 +40,11 @@ public class TagService {
         tag.setName(request.getName());
         return  tagRepository.save(tag);
     }
+
+    public void deleteTag(String username, Long tagId) {
+        Tag tag = tagRepository
+                .findByOwnerIdAndId(getIdByUsername(username), tagId)
+                .orElseThrow(() -> new TagNotFoundException("Tag doesn't exist!"));
+        tagRepository.delete(tag);
+    }
 }
