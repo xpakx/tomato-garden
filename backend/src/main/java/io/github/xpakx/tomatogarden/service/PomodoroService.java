@@ -2,7 +2,7 @@ package io.github.xpakx.tomatogarden.service;
 
 import io.github.xpakx.tomatogarden.entity.Pomodoro;
 import io.github.xpakx.tomatogarden.entity.dto.StartRequest;
-import io.github.xpakx.tomatogarden.error.PomodoroNotFinishedException;
+import io.github.xpakx.tomatogarden.error.PomodoroEditException;
 import io.github.xpakx.tomatogarden.error.PomodoroNotFoundException;
 import io.github.xpakx.tomatogarden.error.TagNotFoundException;
 import io.github.xpakx.tomatogarden.repository.PomodoroRepository;
@@ -63,11 +63,27 @@ public class PomodoroService {
         return  pomodoroRepository.save(pomodoro);
     }
 
+    public Pomodoro cancelPomodoro(String username, Long pomodoroId) {
+        Long userId = getIdByUsername(username);
+        LocalDateTime now = LocalDateTime.now();
+        Pomodoro pomodoro = pomodoroRepository.findByOwnerIdAndId(userId, pomodoroId)
+                .orElseThrow(() -> new PomodoroNotFoundException("Pomodoro not found!"));
+
+        if(pomodoro.isSucceed() || pomodoro.isFailed()) {
+            throw new PomodoroEditException("Pomodoro is already finished!");
+        }
+
+        pomodoro.setFailed(true);
+        pomodoro.setFinish(now);
+
+        return  pomodoroRepository.save(pomodoro);
+    }
+
     private boolean isSuccessful(LocalDateTime now, Pomodoro pomodoro) {
         LocalDateTime end = pomodoro.getStart().plusMinutes(pomodoro.getMinutes());
         LocalDateTime buffer = pomodoro.getStart().plusMinutes(pomodoro.getMinutes()+5);
         if(now.isBefore(end)) {
-            throw new PomodoroNotFinishedException("Pomodoro isn't finished yet!");
+            throw new PomodoroEditException("Pomodoro isn't finished yet!");
         }
 
         return !now.isAfter(buffer);

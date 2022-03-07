@@ -33,4 +33,13 @@ public class PomodoroController {
                 HttpStatus.OK
         );
     }
+
+    @PreAuthorize("#username.equals(authentication.principal.username)")
+    @PutMapping("/{username}/pomodoro/{pomodoroId}/cancel")
+    public ResponseEntity<Pomodoro> cancel(@PathVariable String username, @PathVariable Long pomodoroId) {
+        return new ResponseEntity<>(
+                pomodoroService.cancelPomodoro(username, pomodoroId),
+                HttpStatus.OK
+        );
+    }
 }
