@@ -55,11 +55,11 @@ export class MainComponent implements OnInit {
     if(this.pomodoroId) {
       this.service.stop(this.pomodoroId).subscribe(
         (response: Pomodoro) => {
+          this.started = false;
         },
         (error: HttpErrorResponse) => {
           this.message = error.error.message;
           this.invalid = true;
-          this.started = false;
         }
       );
     }
