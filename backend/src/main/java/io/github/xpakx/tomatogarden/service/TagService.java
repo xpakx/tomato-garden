@@ -1,6 +1,7 @@
 package io.github.xpakx.tomatogarden.service;
 
 import io.github.xpakx.tomatogarden.entity.Tag;
+import io.github.xpakx.tomatogarden.entity.dto.TagDto;
 import io.github.xpakx.tomatogarden.entity.dto.TagRequest;
 import io.github.xpakx.tomatogarden.error.TagNotFoundException;
 import io.github.xpakx.tomatogarden.repository.PomodoroRepository;
@@ -8,6 +9,8 @@ import io.github.xpakx.tomatogarden.repository.TagRepository;
 import io.github.xpakx.tomatogarden.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -46,5 +49,9 @@ public class TagService {
                 .findByOwnerIdAndId(getIdByUsername(username), tagId)
                 .orElseThrow(() -> new TagNotFoundException("Tag doesn't exist!"));
         tagRepository.delete(tag);
+    }
+
+    public List<TagDto> getTags(String username) {
+        return tagRepository.findByOwnerId(getIdByUsername(username));
     }
 }
