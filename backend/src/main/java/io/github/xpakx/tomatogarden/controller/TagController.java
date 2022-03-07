@@ -1,6 +1,8 @@
 package io.github.xpakx.tomatogarden.controller;
 
+import io.github.xpakx.tomatogarden.entity.Pomodoro;
 import io.github.xpakx.tomatogarden.entity.Tag;
+import io.github.xpakx.tomatogarden.entity.dto.IdRequest;
 import io.github.xpakx.tomatogarden.entity.dto.TagDto;
 import io.github.xpakx.tomatogarden.entity.dto.TagRequest;
 import io.github.xpakx.tomatogarden.service.TagService;
@@ -49,6 +51,15 @@ public class TagController {
     public ResponseEntity<List<TagDto>> getAll(@PathVariable String username) {
         return new ResponseEntity<>(
                 tagService.getTags(username),
+                HttpStatus.OK
+        );
+    }
+
+    @PreAuthorize("#username.equals(authentication.principal.username)")
+    @PutMapping("/{username}/pomodoro/{pomodoroId}")
+    public ResponseEntity<Pomodoro> update(@RequestBody IdRequest request, @PathVariable String username, @PathVariable Long pomodoroId) {
+        return new ResponseEntity<>(
+                tagService.updateTagForPomodoro(request, username, pomodoroId),
                 HttpStatus.OK
         );
     }

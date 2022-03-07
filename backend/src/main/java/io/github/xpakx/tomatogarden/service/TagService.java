@@ -1,8 +1,11 @@
 package io.github.xpakx.tomatogarden.service;
 
+import io.github.xpakx.tomatogarden.entity.Pomodoro;
 import io.github.xpakx.tomatogarden.entity.Tag;
+import io.github.xpakx.tomatogarden.entity.dto.IdRequest;
 import io.github.xpakx.tomatogarden.entity.dto.TagDto;
 import io.github.xpakx.tomatogarden.entity.dto.TagRequest;
+import io.github.xpakx.tomatogarden.error.PomodoroNotFoundException;
 import io.github.xpakx.tomatogarden.error.TagNotFoundException;
 import io.github.xpakx.tomatogarden.repository.PomodoroRepository;
 import io.github.xpakx.tomatogarden.repository.TagRepository;
@@ -53,5 +56,15 @@ public class TagService {
 
     public List<TagDto> getTags(String username) {
         return tagRepository.findByOwnerId(getIdByUsername(username));
+    }
+
+    public Pomodoro updateTagForPomodoro(IdRequest request, String username, Long pomodoroId) {
+        Long userId = getIdByUsername(username);
+        Pomodoro pomodoro = pomodoroRepository.findByOwnerIdAndId(userId, pomodoroId)
+                .orElseThrow(() -> new PomodoroNotFoundException("Pomodoro not found!"));
+        Tag tag = tagRepository.findByOwnerIdAndId(userId, request.getId())
+                .orElseThrow(() -> new TagNotFoundException("Tag doesn't exist!"));
+        pomodoro.setTag(tag);
+        return pomodoroRepository.save(pomodoro);
     }
 }
