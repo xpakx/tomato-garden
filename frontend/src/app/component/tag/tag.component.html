@@ -2,10 +2,16 @@
     <div class="modal">
         <hr />
         <h2>Tags</h2>
-        <div class="card">
-            <button class="tag" *ngFor="let tag of tags" (click)="choose(tag)">
-                {{ tag.name }}
-            </button>
+        <div class="tag-card">
+            <div class="tag" *ngFor="let tag of tags">
+                <button class="tag-btn" (click)="choose(tag)">
+                    <span class="tag-icon"><i class="fa fa-circle" [style]="'color:' + tag.color"></i></span> 
+                    <span class="tag-name">{{ tag.name }}</span>
+                </button>
+                <button class="delete-btn">
+                    <i class="fa fa-close"></i>
+                </button>
+            </div>
         </div>
         <div class="card">
             <form id="form" [formGroup]="form">

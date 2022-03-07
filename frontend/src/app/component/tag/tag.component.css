@@ -1,1 +1,45 @@
 @import '../css/modal.css';
+
+.tag-card {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.tag {
+	font-size: 12px;
+	border: 1px solid #5db075;
+	padding: 3px 5px;
+	border-radius: 12px; 
+	display: flex;
+	align-items: center;
+	margin-bottom: 5px;
+    margin: 0 5px;
+}
+
+.tag-btn {
+    cursor: pointer;
+	border: none;
+    background-color: transparent;
+	display: flex;
+	align-items: center;
+}
+
+.tag .tag-icon {
+	font-size: 7px;
+	color: currentColor;
+	margin-right: 3px;
+}
+
+.tag .tag-name {
+	margin-right: 3px;
+}
+
+.delete-btn {
+    cursor: pointer;
+	border: none;
+    background-color: transparent;
+    color: gray;
+	font-size: 10px;
+}
