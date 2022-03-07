@@ -44,16 +44,31 @@ export class MainComponent implements OnInit {
 
   step(): void {
     if(this.current >= this.minutes*60) {
-      this.cancel();
+      this.stop();
     } else {
       this.current += 1;
+    }
+  }
+
+  stop(): void {
+    this.interval?.unsubscribe();
+    if(this.pomodoroId) {
+      this.service.stop(this.pomodoroId).subscribe(
+        (response: Pomodoro) => {
+        },
+        (error: HttpErrorResponse) => {
+          this.message = error.error.message;
+          this.invalid = true;
+          this.started = false;
+        }
+      );
     }
   }
 
   cancel(): void {
     this.interval?.unsubscribe();
     if(this.pomodoroId) {
-      this.service.stop(this.pomodoroId).subscribe(
+      this.service.cancel(this.pomodoroId).subscribe(
         (response: Pomodoro) => {
           this.started = false;
           this.current = 0;

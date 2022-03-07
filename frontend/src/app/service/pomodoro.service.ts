@@ -27,4 +27,9 @@ export class PomodoroService {
     let username  = this.getUsername();
     return this.http.put<Pomodoro>(`${this.apiServerUrl}/${username}/pomodoro/${pomodoroId}/stop`, null);
   }
+
+  public cancel(pomodoroId: number):  Observable<Pomodoro> {
+    let username  = this.getUsername();
+    return this.http.put<Pomodoro>(`${this.apiServerUrl}/${username}/pomodoro/${pomodoroId}/cancel`, null);
+  }
 }
