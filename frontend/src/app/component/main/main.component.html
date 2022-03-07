@@ -56,11 +56,17 @@
 
   <div class="footer">
     <button class="tag" (click)="openTag()">
+      <ng-container *ngIf="tag">
+        <span class="tag-icon"><i class="fa fa-circle" [style]="'color:' + tag.color"></i></span> 
+        <span class="tag-name">{{ tag.name }}</span>
+      </ng-container>
+      <ng-container *ngIf="!tag">
         <span class="tag-icon"><i class="fa fa-circle"></i></span> 
-        <span class="tag-name">Work</span>
+        <span class="tag-name"> No tag</span>
+      </ng-container>
     </button>
   </div>
 </div>
 
 
-<app-tag (closeEvent)="closeTag()" *ngIf="showTag"></app-tag>
+<app-tag (closeEvent)="closeTag()" (choiceEvent)="changeTag($event)" *ngIf="showTag"></app-tag>

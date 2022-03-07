@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Subscription, interval } from 'rxjs';
 import { Pomodoro } from 'src/app/entity/pomodoro';
+import { Tag } from 'src/app/entity/tag';
 import { PomodoroService } from 'src/app/service/pomodoro.service';
 
 @Component({
@@ -25,7 +26,7 @@ export class MainComponent implements OnInit {
     this.service.start({
       deepFocus: false,
       collaborative: false,
-      tagId: null,
+      tagId: this.tag ? this.tag.id : null,
       minutes: this.minutes
     }).subscribe(
       (response: Pomodoro) => {
@@ -106,6 +107,7 @@ export class MainComponent implements OnInit {
   }
 
   showTag: boolean = false;
+  tag: Tag | undefined;
 
   openTag() {
     this.showTag = true;
@@ -113,5 +115,10 @@ export class MainComponent implements OnInit {
 
   closeTag() {
     this.showTag = false;
+  }
+
+  changeTag(tag: Tag) {
+    this.tag = tag;
+    this.closeTag();
   }
 }

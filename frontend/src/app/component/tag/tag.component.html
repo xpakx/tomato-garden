@@ -3,9 +3,9 @@
         <hr />
         <h2>Tags</h2>
         <div class="card">
-            <div class="tag" *ngFor="let tag of tags">
+            <button class="tag" *ngFor="let tag of tags" (click)="choose(tag)">
                 {{ tag.name }}
-            </div>
+            </button>
         </div>
         <div class="card">
             <form id="form" [formGroup]="form">

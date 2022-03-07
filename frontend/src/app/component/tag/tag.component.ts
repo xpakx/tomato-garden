@@ -13,6 +13,7 @@ export class TagComponent implements OnInit {
   public invalid: boolean = false;
   public message: string = '';
   @Output() closeEvent = new EventEmitter<boolean>();
+  @Output() choiceEvent = new EventEmitter<Tag>();
   form: FormGroup;
   tags: Tag[] = [];
 
@@ -49,5 +50,9 @@ export class TagComponent implements OnInit {
 
   close() {
     this.closeEvent.emit(false);
+  }
+  
+  choose(tag: Tag) {
+    this.choiceEvent.emit(tag);
   }
 }
