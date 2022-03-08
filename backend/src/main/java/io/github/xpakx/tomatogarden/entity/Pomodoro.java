@@ -30,7 +30,7 @@ public class Pomodoro {
 
     private boolean paused;
     private LocalDateTime afterPauseStart;
-    private Integer minutesBeforePause;
+    private Integer secondsAfterPause;
 
     @JsonIgnore
     @ManyToOne

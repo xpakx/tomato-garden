@@ -36,7 +36,7 @@ public class PomodoroService {
         pomodoro.setStart(LocalDateTime.now());
         pomodoro.setMinutes(request.getMinutes());
         pomodoro.setPaused(false);
-        pomodoro.setMinutesBeforePause(0);
+        pomodoro.setSecondsAfterPause(0);
         pomodoro.setOwner(userRepository.getById(userId));
         if(request.getTagId() != null) {
             pomodoro.setTag(
