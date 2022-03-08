@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 @Service
 @AllArgsConstructor
@@ -87,5 +88,41 @@ public class PomodoroService {
         }
 
         return !now.isAfter(buffer);
+    }
+
+    public Pomodoro pausePomodoro(String username, Long pomodoroId) {
+        Long userId = getIdByUsername(username);
+        LocalDateTime now = LocalDateTime.now();
+        Pomodoro pomodoro = pomodoroRepository.findByOwnerIdAndId(userId, pomodoroId)
+                .orElseThrow(() -> new PomodoroNotFoundException("Pomodoro not found!"));
+
+        if(pomodoro.isSucceed() || pomodoro.isFailed()) {
+            throw new PomodoroEditException("Pomodoro is already finished!");
+        }
+        if(pomodoro.isDeepFocus()) {
+            throw new PomodoroEditException("You cannot pause while in deep focus!");
+        }
+
+        pomodoro.setPaused(true);
+        pomodoro.setSecondsAfterPause(
+                pomodoro.getMinutes()*60 - (int)ChronoUnit.SECONDS.between(pomodoro.getStart(), now)
+        );
+
+        return  pomodoroRepository.save(pomodoro);
+    }
+
+    public Pomodoro restartPomodoro(String username, Long pomodoroId) {
+        Long userId = getIdByUsername(username);
+        Pomodoro pomodoro = pomodoroRepository.findByOwnerIdAndId(userId, pomodoroId)
+                .orElseThrow(() -> new PomodoroNotFoundException("Pomodoro not found!"));
+
+        if(!pomodoro.isPaused()) {
+            throw new PomodoroEditException("Pomodoro isn't paused!");
+        }
+
+        pomodoro.setPaused(false);
+        pomodoro.setAfterPauseStart(LocalDateTime.now());
+
+        return  pomodoroRepository.save(pomodoro);
     }
 }

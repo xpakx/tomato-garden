@@ -42,4 +42,22 @@ public class PomodoroController {
                 HttpStatus.OK
         );
     }
+
+    @PreAuthorize("#username.equals(authentication.principal.username)")
+    @PutMapping("/{username}/pomodoro/pause")
+    public ResponseEntity<Pomodoro> pause(@PathVariable String username, @PathVariable Long pomodoroId) {
+        return new ResponseEntity<>(
+                pomodoroService.pausePomodoro(username, pomodoroId),
+                HttpStatus.OK
+        );
+    }
+
+    @PreAuthorize("#username.equals(authentication.principal.username)")
+    @PutMapping("/{username}/pomodoro/{pomodoroId}/restart")
+    public ResponseEntity<Pomodoro> restart(@PathVariable String username, @PathVariable Long pomodoroId) {
+        return new ResponseEntity<>(
+                pomodoroService.restartPomodoro(username, pomodoroId),
+                HttpStatus.OK
+        );
+    }
 }
