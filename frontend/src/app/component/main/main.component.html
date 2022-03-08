@@ -51,6 +51,12 @@
     <div class="buttons">
         <button class="cancel-btn" (click)="cancel()" *ngIf="started">Cancel</button>
         <button class="cancel-btn" (click)="start()" *ngIf="!started">Start</button>
+        <button class="cancel-btn" (click)="pause()" *ngIf="!deepFocus && started && !paused">
+          <i class="fa fa-pause"></i>
+        </button>
+        <button class="cancel-btn" (click)="restart()" *ngIf="!deepFocus && started && paused">
+          <i class="fa fa-play"></i>
+        </button>
     </div>
   </div>
 

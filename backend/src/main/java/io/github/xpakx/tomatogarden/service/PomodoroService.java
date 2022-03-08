@@ -104,9 +104,15 @@ public class PomodoroService {
         }
 
         pomodoro.setPaused(true);
-        pomodoro.setSecondsAfterPause(
-                pomodoro.getMinutes()*60 - (int)ChronoUnit.SECONDS.between(pomodoro.getStart(), now)
-        );
+        if(pomodoro.getAfterPauseStart() == null) {
+            pomodoro.setSecondsAfterPause(
+                    pomodoro.getMinutes()*60 - (int)ChronoUnit.SECONDS.between(pomodoro.getStart(), now)
+            );
+        } else {
+            pomodoro.setSecondsAfterPause(
+                    pomodoro.getSecondsAfterPause() - (int)ChronoUnit.SECONDS.between(pomodoro.getAfterPauseStart(), now)
+            );
+        }
 
         return  pomodoroRepository.save(pomodoro);
     }

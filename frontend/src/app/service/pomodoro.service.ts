@@ -32,4 +32,14 @@ export class PomodoroService {
     let username  = this.getUsername();
     return this.http.put<Pomodoro>(`${this.apiServerUrl}/${username}/pomodoro/${pomodoroId}/cancel`, null);
   }
+
+  public pause(pomodoroId: number):  Observable<Pomodoro> {
+    let username  = this.getUsername();
+    return this.http.put<Pomodoro>(`${this.apiServerUrl}/${username}/pomodoro/${pomodoroId}/pause`, null);
+  }
+
+  public restart(pomodoroId: number):  Observable<Pomodoro> {
+    let username  = this.getUsername();
+    return this.http.put<Pomodoro>(`${this.apiServerUrl}/${username}/pomodoro/${pomodoroId}/restart`, null);
+  }
 }

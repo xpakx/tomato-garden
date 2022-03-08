@@ -19,6 +19,8 @@ export class MainComponent implements OnInit {
   @Output() menuEvent = new EventEmitter<boolean>();
   message: string = "";
   invalid: boolean = false;
+  paused: boolean = false;
+  deepFocus: boolean = false;
 
   constructor(private service: PomodoroService) { }
 
@@ -56,6 +58,38 @@ export class MainComponent implements OnInit {
       this.service.stop(this.pomodoroId).subscribe(
         (response: Pomodoro) => {
           this.started = false;
+        },
+        (error: HttpErrorResponse) => {
+          this.message = error.error.message;
+          this.invalid = true;
+        }
+      );
+    }
+  }
+
+  pause(): void {
+    this.interval?.unsubscribe();
+    if(this.pomodoroId) {
+      this.service.pause(this.pomodoroId).subscribe(
+        (response: Pomodoro) => {
+          this.paused = true;
+        },
+        (error: HttpErrorResponse) => {
+          this.message = error.error.message;
+          this.invalid = true;
+        }
+      );
+    }
+  }
+
+  restart(): void {
+    if(this.pomodoroId) {
+      this.service.restart(this.pomodoroId).subscribe(
+        (response: Pomodoro) => {
+          this.pomodoroId = response.id;
+          this.paused = false;
+          this.current = this.minutes*60 - response.secondsAfterPause;
+          this.interval = interval(1000).subscribe((x) => this.step());
         },
         (error: HttpErrorResponse) => {
           this.message = error.error.message;

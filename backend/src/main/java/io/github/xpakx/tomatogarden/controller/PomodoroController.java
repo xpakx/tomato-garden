@@ -44,7 +44,7 @@ public class PomodoroController {
     }
 
     @PreAuthorize("#username.equals(authentication.principal.username)")
-    @PutMapping("/{username}/pomodoro/pause")
+    @PutMapping("/{username}/pomodoro/{pomodoroId}/pause")
     public ResponseEntity<Pomodoro> pause(@PathVariable String username, @PathVariable Long pomodoroId) {
         return new ResponseEntity<>(
                 pomodoroService.pausePomodoro(username, pomodoroId),
