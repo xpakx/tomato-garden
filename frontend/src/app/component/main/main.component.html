@@ -21,7 +21,7 @@
   </div>
 
   <div class="timer-container">
-    <div class="tomato">
+    <div class="tomato" (click)="switchPause()">
         <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
             <g class="base-timer__circle">
                 <circle class="base-timer__path-elapsed" cx="50" cy="50" r="45" />
@@ -46,17 +46,12 @@
         {{ minutesLeft | number:'2.0-0' }}:{{ secondsLeft | number:'2.0-0' }}
     </div>
     <div class="progress" *ngIf="started">
-        {{ fraction | percent:'1.0-0'}} spent
+        {{ fraction | percent:'1.0-0'}} spent 
+        <ng-container *ngIf="paused">(paused)</ng-container>
     </div>
     <div class="buttons">
         <button class="cancel-btn" (click)="cancel()" *ngIf="started">Cancel</button>
         <button class="cancel-btn" (click)="start()" *ngIf="!started">Start</button>
-        <button class="cancel-btn" (click)="pause()" *ngIf="!deepFocus && started && !paused">
-          <i class="fa fa-pause"></i>
-        </button>
-        <button class="cancel-btn" (click)="restart()" *ngIf="!deepFocus && started && paused">
-          <i class="fa fa-play"></i>
-        </button>
     </div>
   </div>
 

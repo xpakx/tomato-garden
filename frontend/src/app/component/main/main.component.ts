@@ -67,6 +67,22 @@ export class MainComponent implements OnInit {
     }
   }
 
+  switchPause(): void {
+    if(!this.started) {
+      this.start()
+    }
+
+    if(this.deepFocus) {
+      return;
+    }
+
+    if(this.paused) {
+      this.restart();
+    } else {
+      this.pause();
+    }
+  }
+
   pause(): void {
     this.interval?.unsubscribe();
     if(this.pomodoroId) {
