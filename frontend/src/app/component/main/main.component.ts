@@ -22,9 +22,20 @@ export class MainComponent implements OnInit {
   paused: boolean = false;
   deepFocus: boolean = false;
 
+  break: boolean = false;
+  breakMinutes: number = 1;
+
   constructor(private service: PomodoroService) { }
 
-  start(): void {
+  start() {
+    if(this.break) {
+      this.startBreak();
+    } else {
+      this.startPomodoro();
+    }
+  }
+
+  startPomodoro(): void {
     this.service.start({
       deepFocus: false,
       collaborative: false,
@@ -52,12 +63,27 @@ export class MainComponent implements OnInit {
     }
   }
 
+  startBreak() {
+    this.started = true;
+    this.current = 0;
+    this.interval = interval(1000).subscribe((x) => this.stepBreak());
+  }
+
+  stepBreak(): void {
+    if(this.current >= this.breakMinutes*60) {
+      this.stopBreak();
+    } else {
+      this.current += 1;
+    }
+  }
+
   stop(): void {
     this.interval?.unsubscribe();
     if(this.pomodoroId) {
       this.service.stop(this.pomodoroId).subscribe(
         (response: Pomodoro) => {
           this.started = false;
+          this.break = true;
         },
         (error: HttpErrorResponse) => {
           this.message = error.error.message;
@@ -67,12 +93,18 @@ export class MainComponent implements OnInit {
     }
   }
 
+  stopBreak(): void {
+    this.interval?.unsubscribe();
+    this.started = false;
+    this.break = false;
+  }
+
   switchPause(): void {
     if(!this.started) {
       this.start()
     }
 
-    if(this.deepFocus) {
+    if(!this.break && this.deepFocus) {
       return;
     }
 
@@ -84,6 +116,14 @@ export class MainComponent implements OnInit {
   }
 
   pause(): void {
+    if(this.break) {
+      this.pauseBreak();
+    } else {
+      this.pausePomodoro();
+    }
+  }
+
+  pausePomodoro(): void {
     this.interval?.unsubscribe();
     if(this.pomodoroId) {
       this.service.pause(this.pomodoroId).subscribe(
@@ -98,7 +138,20 @@ export class MainComponent implements OnInit {
     }
   }
 
+  pauseBreak(): void {
+    this.interval?.unsubscribe();
+    this.paused = true;
+  }
+
   restart(): void {
+    if(this.break) {
+      this.restartBreak();
+    } else {
+      this.restartPomodoro();
+    }
+  }
+
+  restartPomodoro(): void {
     if(this.pomodoroId) {
       this.service.restart(this.pomodoroId).subscribe(
         (response: Pomodoro) => {
@@ -115,13 +168,28 @@ export class MainComponent implements OnInit {
     }
   }
 
+  restartBreak(): void {
+      this.paused = false;
+      this.interval = interval(1000).subscribe((x) => this.stepBreak());
+  }
+  
+
   cancel(): void {
+    if(this.break) {
+      this.cancelBreak();
+    } else {
+      this.cancelPomodoro();
+    }
+  }
+
+  cancelPomodoro(): void {
     this.interval?.unsubscribe();
     if(this.pomodoroId) {
       this.service.cancel(this.pomodoroId).subscribe(
         (response: Pomodoro) => {
           this.started = false;
           this.current = 0;
+          this.break = true;
         },
         (error: HttpErrorResponse) => {
           this.message = error.error.message;
@@ -131,11 +199,24 @@ export class MainComponent implements OnInit {
     } else {
       this.started = false;
       this.current = 0;
+      this.break = true;
     }
   }
 
+  cancelBreak(): void {
+    this.interval?.unsubscribe();
+    this.started = false;
+    this.current = 0;
+    this.break = false;
+
+  }
+
+  get activeMinutes(): number {
+    return this.break ? this.breakMinutes : this.minutes;
+  }
+
   get remaining(): number {
-    return this.minutes * 60 - this.current;
+    return this.activeMinutes * 60 - this.current;
   }
 
   get minutesLeft(): number {
@@ -147,21 +228,37 @@ export class MainComponent implements OnInit {
   }
 
   get fraction(): number {
-    return this.current/(this.minutes * 60);
+    return this.current/(this.activeMinutes * 60);
   }
 
   get dashStyle(): String {
-    return ((this.remaining/(this.minutes*60)) * 283).toFixed(0) + ' 283';
+    return ((this.remaining/(this.activeMinutes*60)) * 283).toFixed(0) + ' 283';
   }
 
   get stage(): String {
     let fraction = this.fraction;
-    if(fraction > 0.90) { return "tomato5"; }
+    if(this.break || fraction > 0.90) { return "tomato5"; }
     if(fraction > 0.75) { return "tomato4"; }
     if(fraction > 0.50) { return "tomato3"; }
     if(fraction > 0.25) { return "tomato2"; }
     if(fraction > 0.10) { return "tomato1"; }
     return "tomato0";
+  }
+
+  get breakStarted(): boolean {
+    return this.break && this.started;
+  }
+
+  get breakNotStarted(): boolean {
+    return this.break && !this.started;
+  }
+
+  get pomodoroStarted(): boolean {
+    return !this.break && this.started;
+  }
+
+  get pomodoroNotStarted(): boolean {
+    return !this.break && !this.started;
   }
 
   ngOnInit(): void {

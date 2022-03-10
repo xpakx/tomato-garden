@@ -50,8 +50,10 @@
         <ng-container *ngIf="paused">(paused)</ng-container>
     </div>
     <div class="buttons">
-        <button class="cancel-btn" (click)="cancel()" *ngIf="started">Cancel</button>
-        <button class="cancel-btn" (click)="start()" *ngIf="!started">Start</button>
+        <button class="cancel-btn" (click)="cancel()" *ngIf="pomodoroStarted">Cancel</button>
+        <button class="cancel-btn" (click)="cancel()" *ngIf="breakStarted">Skip break</button>
+        <button class="cancel-btn" (click)="start()" *ngIf="pomodoroNotStarted">Start</button>
+        <button class="cancel-btn" (click)="start()" *ngIf="breakNotStarted">Start break</button>
     </div>
   </div>
 
@@ -63,7 +65,7 @@
       </ng-container>
       <ng-container *ngIf="!tag">
         <span class="tag-icon"><i class="fa fa-circle"></i></span> 
-        <span class="tag-name"> No tag</span>
+        <span class="tag-name">No tag</span>
       </ng-container>
     </button>
   </div>
