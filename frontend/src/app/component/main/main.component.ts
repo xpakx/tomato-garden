@@ -12,7 +12,8 @@ import { Timer } from 'src/app/utils/timer';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
-  public minutes: number = 1;
+  minutes: number = 1;
+  breakMinutes: number = 1;
   pomodoroId?: number;
   @Output() menuEvent = new EventEmitter<boolean>();
   message: string = "";
@@ -20,7 +21,7 @@ export class MainComponent implements OnInit {
   deepFocus: boolean = false;
 
   break: boolean = false;
-  breakMinutes: number = 1;
+  audio: HTMLAudioElement = new Audio("../../../assets/sound.wav");
 
   timer: Timer;
 
@@ -65,10 +66,13 @@ export class MainComponent implements OnInit {
   }
 
   private newBreak(): BreakTimer {
-    return this.timer = new BreakTimer(this, this.minutes);
+    return this.timer = new BreakTimer(this, this.breakMinutes);
   }
 
   skip(): void {
+    if(this.timer.current == this.timer.minutes*60) {
+      this.audio.play();
+    }
     this.timer = this.break ? this.newPomodoro() : this.newBreak();
     this.break = !this.break;
   }
@@ -83,7 +87,7 @@ export class MainComponent implements OnInit {
   }
   
   get activeMinutes(): number {
-    return this.break ? this.breakMinutes : this.timer.minutes;
+    return this.timer.minutes;
   }
 
   get remaining(): number {
@@ -133,6 +137,7 @@ export class MainComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.audio.load();
   }
 
   switchMenu(): void {
