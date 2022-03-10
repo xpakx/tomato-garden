@@ -45,9 +45,9 @@
     <div class="timer">
         {{ minutesLeft | number:'2.0-0' }}:{{ secondsLeft | number:'2.0-0' }}
     </div>
-    <div class="progress" *ngIf="started">
+    <div class="progress" *ngIf="timer.started">
         {{ fraction | percent:'1.0-0'}} spent 
-        <ng-container *ngIf="paused">(paused)</ng-container>
+        <ng-container *ngIf="timer.paused">(paused)</ng-container>
     </div>
     <div class="buttons">
         <button class="cancel-btn" (click)="cancel()" *ngIf="pomodoroStarted">Cancel</button>

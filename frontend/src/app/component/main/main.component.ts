@@ -1,9 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Subscription, interval } from 'rxjs';
-import { Pomodoro } from 'src/app/entity/pomodoro';
 import { Tag } from 'src/app/entity/tag';
 import { PomodoroService } from 'src/app/service/pomodoro.service';
+import { BreakTimer } from 'src/app/utils/break-timer';
+import { PomodoroTimer } from 'src/app/utils/pomodoro-timer';
+import { Timer } from 'src/app/utils/timer';
 
 @Component({
   selector: 'app-main',
@@ -12,95 +13,27 @@ import { PomodoroService } from 'src/app/service/pomodoro.service';
 })
 export class MainComponent implements OnInit {
   public minutes: number = 1;
-  public current: number = 0;
-  private interval?: Subscription;
-  started: boolean = false;
   pomodoroId?: number;
   @Output() menuEvent = new EventEmitter<boolean>();
   message: string = "";
   invalid: boolean = false;
-  paused: boolean = false;
   deepFocus: boolean = false;
 
   break: boolean = false;
   breakMinutes: number = 1;
 
-  constructor(private service: PomodoroService) { }
+  timer: Timer;
+
+  constructor(private service: PomodoroService) {
+    this.timer = this.newPomodoro();
+  }
 
   start() {
-    if(this.break) {
-      this.startBreak();
-    } else {
-      this.startPomodoro();
-    }
-  }
-
-  startPomodoro(): void {
-    this.service.start({
-      deepFocus: false,
-      collaborative: false,
-      tagId: this.tag ? this.tag.id : null,
-      minutes: this.minutes
-    }).subscribe(
-      (response: Pomodoro) => {
-        this.pomodoroId = response.id;
-        this.started = true;
-        this.current = 0;
-        this.interval = interval(1000).subscribe((x) => this.step());
-      },
-      (error: HttpErrorResponse) => {
-        this.message = error.error.message;
-        this.invalid = true;
-      }
-    );
-  }
-
-  step(): void {
-    if(this.current >= this.minutes*60) {
-      this.stop();
-    } else {
-      this.current += 1;
-    }
-  }
-
-  startBreak() {
-    this.started = true;
-    this.current = 0;
-    this.interval = interval(1000).subscribe((x) => this.stepBreak());
-  }
-
-  stepBreak(): void {
-    if(this.current >= this.breakMinutes*60) {
-      this.stopBreak();
-    } else {
-      this.current += 1;
-    }
-  }
-
-  stop(): void {
-    this.interval?.unsubscribe();
-    if(this.pomodoroId) {
-      this.service.stop(this.pomodoroId).subscribe(
-        (response: Pomodoro) => {
-          this.started = false;
-          this.break = true;
-        },
-        (error: HttpErrorResponse) => {
-          this.message = error.error.message;
-          this.invalid = true;
-        }
-      );
-    }
-  }
-
-  stopBreak(): void {
-    this.interval?.unsubscribe();
-    this.started = false;
-    this.break = false;
+    this.timer.start();
   }
 
   switchPause(): void {
-    if(!this.started) {
+    if(!this.timer.started) {
       this.start()
     }
 
@@ -108,7 +41,7 @@ export class MainComponent implements OnInit {
       return;
     }
 
-    if(this.paused) {
+    if(this.timer.paused) {
       this.restart();
     } else {
       this.pause();
@@ -116,107 +49,45 @@ export class MainComponent implements OnInit {
   }
 
   pause(): void {
-    if(this.break) {
-      this.pauseBreak();
-    } else {
-      this.pausePomodoro();
-    }
-  }
-
-  pausePomodoro(): void {
-    this.interval?.unsubscribe();
-    if(this.pomodoroId) {
-      this.service.pause(this.pomodoroId).subscribe(
-        (response: Pomodoro) => {
-          this.paused = true;
-        },
-        (error: HttpErrorResponse) => {
-          this.message = error.error.message;
-          this.invalid = true;
-        }
-      );
-    }
-  }
-
-  pauseBreak(): void {
-    this.interval?.unsubscribe();
-    this.paused = true;
+    this.timer.pause();
   }
 
   restart(): void {
-    if(this.break) {
-      this.restartBreak();
-    } else {
-      this.restartPomodoro();
-    }
+    this.timer.restart();
   }
-
-  restartPomodoro(): void {
-    if(this.pomodoroId) {
-      this.service.restart(this.pomodoroId).subscribe(
-        (response: Pomodoro) => {
-          this.pomodoroId = response.id;
-          this.paused = false;
-          this.current = this.minutes*60 - response.secondsAfterPause;
-          this.interval = interval(1000).subscribe((x) => this.step());
-        },
-        (error: HttpErrorResponse) => {
-          this.message = error.error.message;
-          this.invalid = true;
-        }
-      );
-    }
-  }
-
-  restartBreak(): void {
-      this.paused = false;
-      this.interval = interval(1000).subscribe((x) => this.stepBreak());
-  }
-  
 
   cancel(): void {
-    if(this.break) {
-      this.cancelBreak();
-    } else {
-      this.cancelPomodoro();
-    }
+    this.timer.cancel();
   }
 
-  cancelPomodoro(): void {
-    this.interval?.unsubscribe();
-    if(this.pomodoroId) {
-      this.service.cancel(this.pomodoroId).subscribe(
-        (response: Pomodoro) => {
-          this.started = false;
-          this.current = 0;
-          this.break = true;
-        },
-        (error: HttpErrorResponse) => {
-          this.message = error.error.message;
-          this.invalid = true;
-        }
-      );
-    } else {
-      this.started = false;
-      this.current = 0;
-      this.break = true;
-    }
+  private newPomodoro(): PomodoroTimer {
+    return new PomodoroTimer(this, this.service, this.minutes);
   }
 
-  cancelBreak(): void {
-    this.interval?.unsubscribe();
-    this.started = false;
-    this.current = 0;
-    this.break = false;
-
+  private newBreak(): BreakTimer {
+    return this.timer = new BreakTimer(this, this.minutes);
   }
 
+  skip(): void {
+    this.timer = this.break ? this.newPomodoro() : this.newBreak();
+    this.break = !this.break;
+  }
+
+  stop(): void {
+    this.timer = this.break ? this.newBreak() : this.newPomodoro();
+  }
+
+  loadError(error: HttpErrorResponse): void {
+    this.message = error.error.message;
+    this.invalid = true;
+  }
+  
   get activeMinutes(): number {
-    return this.break ? this.breakMinutes : this.minutes;
+    return this.break ? this.breakMinutes : this.timer.minutes;
   }
 
   get remaining(): number {
-    return this.activeMinutes * 60 - this.current;
+    return this.activeMinutes * 60 - this.timer.current;
   }
 
   get minutesLeft(): number {
@@ -228,7 +99,7 @@ export class MainComponent implements OnInit {
   }
 
   get fraction(): number {
-    return this.current/(this.activeMinutes * 60);
+    return this.timer.current/(this.activeMinutes * 60);
   }
 
   get dashStyle(): String {
@@ -246,19 +117,19 @@ export class MainComponent implements OnInit {
   }
 
   get breakStarted(): boolean {
-    return this.break && this.started;
+    return this.break && this.timer.started;
   }
 
   get breakNotStarted(): boolean {
-    return this.break && !this.started;
+    return this.break && !this.timer.started;
   }
 
   get pomodoroStarted(): boolean {
-    return !this.break && this.started;
+    return !this.break && this.timer.started;
   }
 
   get pomodoroNotStarted(): boolean {
-    return !this.break && !this.started;
+    return !this.break && !this.timer.started;
   }
 
   ngOnInit(): void {
