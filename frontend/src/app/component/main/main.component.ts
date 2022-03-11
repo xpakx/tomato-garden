@@ -12,8 +12,8 @@ import { Timer } from 'src/app/utils/timer';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
-  minutes: number = 1;
-  breakMinutes: number = 1;
+  minutes: number = 25;
+  breakMinutes: number = 5;
   pomodoroId?: number;
   @Output() menuEvent = new EventEmitter<boolean>();
   message: string = "";
@@ -21,7 +21,7 @@ export class MainComponent implements OnInit {
   deepFocus: boolean = false;
 
   break: boolean = false;
-  audio: HTMLAudioElement = new Audio("../../../assets/sound.wav");
+  audio: HTMLAudioElement = new Audio("../../../assets/sound.mp3");
 
   timer: Timer;
 

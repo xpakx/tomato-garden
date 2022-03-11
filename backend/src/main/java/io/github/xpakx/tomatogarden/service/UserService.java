@@ -20,4 +20,8 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("No user with username " + username));
         return new User(userAccount.getUsername(), userAccount.getPassword(), userAccount.getRoles());
     }
+
+    public UserDetails userAccountToUserDetails(UserAccount userAccount) {
+        return new User(userAccount.getUsername(), userAccount.getPassword(), userAccount.getRoles());
+    }
 }
