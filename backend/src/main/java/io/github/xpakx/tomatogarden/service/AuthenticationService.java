@@ -60,29 +60,9 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse register(RegistrationRequest request) {
-
-        if (userRepository.findByUsername(request.getUsername()).isPresent()) {
-            throw new ValidationException("Username exists!");
-        }
-        if (!request.getPassword().equals(request.getPasswordRe())) {
-            throw new ValidationException("Passwords don't match!");
-        }
-        Set<UserRole> roles = new HashSet<>();
-
-        UserAccount userToAdd = new UserAccount();
-        userToAdd.setPassword(passwordEncoder.encode(request.getPassword()));
-        userToAdd.setUsername(request.getUsername());
-        userToAdd.setRoles(roles);
-
-        userToAdd = userRepository.save(userToAdd);
-
-        UserSettings settings = new UserSettings();
-        settings.setDefaultFocus(false);
-        settings.setDefaultBreakLength(5);
-        settings.setDefaultPomodoroLength(25);
-        settings.setUser(userToAdd);
-        settingsRepository.save((settings));
-
+        testRegistrationRequest(request);
+        UserAccount userToAdd = createNewUser(request);
+        UserSettings settings = getDefaultSettings(userToAdd);
         authenticate(request.getUsername(), request.getPassword());
         final String token = jwtTokenUtil.generateToken(userService.userAccountToUserDetails(userToAdd));
         return AuthenticationResponse.builder()
@@ -92,5 +72,34 @@ public class AuthenticationService {
                 .defaultPomodoroLength(settings.getDefaultPomodoroLength())
                 .defaultFocus(settings.isDefaultFocus())
                 .build();
+    }
+
+    private void testRegistrationRequest(RegistrationRequest request) {
+        if (userRepository.findByUsername(request.getUsername()).isPresent()) {
+            throw new ValidationException("Username exists!");
+        }
+        if (!request.getPassword().equals(request.getPasswordRe())) {
+            throw new ValidationException("Passwords don't match!");
+        }
+    }
+
+    private UserAccount createNewUser(RegistrationRequest request) {
+        Set<UserRole> roles = new HashSet<>();
+        UserAccount userToAdd = new UserAccount();
+        userToAdd.setPassword(passwordEncoder.encode(request.getPassword()));
+        userToAdd.setUsername(request.getUsername());
+        userToAdd.setRoles(roles);
+        userToAdd = userRepository.save(userToAdd);
+        return userToAdd;
+    }
+
+    private UserSettings getDefaultSettings(UserAccount user) {
+        UserSettings settings = new UserSettings();
+        settings.setDefaultFocus(false);
+        settings.setDefaultBreakLength(5);
+        settings.setDefaultPomodoroLength(25);
+        settings.setUser(user);
+        settingsRepository.save((settings));
+        return settings;
     }
 }
