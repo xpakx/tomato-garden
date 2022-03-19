@@ -1,8 +1,6 @@
 package io.github.xpakx.tomatogarden.controller;
 
 import io.github.xpakx.tomatogarden.entity.Pomodoro;
-import io.github.xpakx.tomatogarden.entity.dto.AuthenticationRequest;
-import io.github.xpakx.tomatogarden.entity.dto.AuthenticationResponse;
 import io.github.xpakx.tomatogarden.entity.dto.StartRequest;
 import io.github.xpakx.tomatogarden.service.PomodoroService;
 import lombok.AllArgsConstructor;
