@@ -36,7 +36,7 @@ public class StatsService {
         );
     }
 
-    public StatsResponse getTimelinePage(String username, StatsRequest request) {
+    public StatsResponse getStats(String username, StatsRequest request) {
         Long userId = getIdByUsername(username);
         List<Pomodoro> pomodoros = getFromRequest(request, userId);
         return StatsResponse.builder()
