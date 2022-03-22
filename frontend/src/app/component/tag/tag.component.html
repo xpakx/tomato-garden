@@ -8,7 +8,7 @@
                     <span class="tag-icon"><i class="fa fa-circle" [style]="'color:' + tag.color"></i></span> 
                     <span class="tag-name">{{ tag.name }}</span>
                 </button>
-                <button class="delete-btn">
+                <button class="delete-btn" (click)="delete(tag)">
                     <i class="fa fa-close"></i>
                 </button>
             </div>
