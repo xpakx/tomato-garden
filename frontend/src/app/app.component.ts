@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SettingsService } from './service/settings.service';
 
 @Component({
   selector: 'app-root',
@@ -10,8 +11,11 @@ export class AppComponent {
   hideMenu: boolean = true;
   showLogin: boolean = true;
 
-  constructor() {
+  constructor(private settings: SettingsService) {
     this.showLogin = !this.logged;
+    if(this.logged) {
+      settings.load();
+    }
   }
 
   switchMenu() {
