@@ -37,6 +37,9 @@ export class TagComponent implements OnInit {
   }
 
   add() {
+    if(this.form.invalid) {
+      return;
+    }
     this.service.add({name: this.form.controls.name.value, color: this.form.controls.color.value}).subscribe(
       (response: Tag) => {
         this.tags.push(response);

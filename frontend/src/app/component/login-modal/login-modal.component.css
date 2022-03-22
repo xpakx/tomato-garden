@@ -1,6 +1,7 @@
 @import '../css/modal.css';
 
 .link-container {
+    margin-top: 10px;
     text-align: center;
     color: #666;
 }
@@ -14,4 +15,25 @@
 .link:hover {
     text-decoration: underline;
     text-decoration-style: dotted;
+}
+
+.outlined-btn {
+    margin-right: 5px;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#form label {
+    margin-bottom: 3px;
+    color: #666;
+    font-size: smaller;
+}
+
+#form input {
+    margin-bottom: 7px;
+    border-radius: 7px;
 }

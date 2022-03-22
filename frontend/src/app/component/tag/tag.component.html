@@ -24,8 +24,8 @@
                     <label for="color">Color</label>
                 </div>
                 <input class="color" formControlName="color" type="color" />
-                <button class="btn" [class.blocked]="form.invalid" (click)="add()">Add</button>
             </form>
+            <button class="btn add-btn" [class.blocked]="form.invalid" (click)="add()">Add</button>
         </div>
         
         <div class="modal-buttons">

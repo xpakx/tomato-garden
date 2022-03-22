@@ -43,3 +43,29 @@
     color: gray;
 	font-size: 10px;
 }
+
+#form label {
+    margin-bottom: 3px;
+    color: #666;
+    font-size: smaller;
+}
+
+#form input {
+    margin-bottom: 7px;
+    border-radius: 7px;
+	width: 100%;
+}
+
+.card {
+	display: flex;
+	flex-direction: row;
+	border-color: #689c78;
+	border-radius: 15px;
+	border-width: 1px;
+	border-style: solid;
+	padding-left:10px;
+}
+
+.add-btn {
+	margin-left: 10px;
+}
