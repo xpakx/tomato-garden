@@ -2,7 +2,9 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { Subscription, interval } from "rxjs";
 import { MainComponent } from "../component/main/main.component";
 import { Pomodoro } from "../entity/pomodoro";
+import { Settings } from "../entity/settings";
 import { PomodoroService } from "../service/pomodoro.service";
+import { SettingsService } from "../service/settings.service";
 import { Timer } from "./timer";
 
 export class PomodoroTimer implements Timer {
@@ -11,12 +13,22 @@ export class PomodoroTimer implements Timer {
     public started: boolean = false;
     public paused: boolean = false;
     pomodoroId?: number;
+    public minutes: number;
+    private sub?: Subscription;
 
     constructor(private component: MainComponent, 
     private service: PomodoroService, 
-    public minutes: number) { }
+    private settings: SettingsService) {
+        this.minutes = this.settings.defaultPomodoroLength;
+        this.sub = this.settings.settingsPublisher.subscribe(
+            (settings: Settings) => {
+                this.minutes = settings.defaultPomodoroLength
+            }
+        );
+     }
 
     start(): void {
+        this.sub?.unsubscribe();
         this.service.start({
             deepFocus: false,
             collaborative: false,

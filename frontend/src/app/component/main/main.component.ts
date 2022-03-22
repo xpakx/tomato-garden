@@ -17,6 +17,9 @@ export class MainComponent implements OnInit {
   @Output() menuEvent = new EventEmitter<boolean>();
   message: string = "";
   invalid: boolean = false;
+  minutes: number;
+  breakMinutes: number;
+  deepFocus: boolean;
 
   break: boolean = false;
   audio: HTMLAudioElement = new Audio("../../../assets/sound.mp3");
@@ -25,18 +28,9 @@ export class MainComponent implements OnInit {
 
   constructor(private service: PomodoroService, private settings: SettingsService) {
     this.timer = this.newPomodoro();
-  }
-
-  get minutes(): number {
-    return this.settings.defaultPomodoroLength;
-  }
-
-  get breakMinutes(): number {
-    return this.settings.defaultPomodoroLength;
-  }
-
-  get deepFocus(): boolean {
-    return this.settings.defaultFocus;
+    this.minutes = this.settings.defaultPomodoroLength;
+    this.breakMinutes = this.settings.defaultBreakLength;
+    this.deepFocus = this.settings.defaultFocus;
   }
 
   start() {
@@ -72,11 +66,11 @@ export class MainComponent implements OnInit {
   }
 
   private newPomodoro(): PomodoroTimer {
-    return new PomodoroTimer(this, this.service, this.minutes);
+    return new PomodoroTimer(this, this.service, this.settings);
   }
 
   private newBreak(): BreakTimer {
-    return this.timer = new BreakTimer(this, this.breakMinutes);
+    return this.timer = new BreakTimer(this, this.settings);
   }
 
   skip(): void {

@@ -1,5 +1,7 @@
 import { Subscription, interval } from "rxjs";
 import { MainComponent } from "../component/main/main.component";
+import { Settings } from "../entity/settings";
+import { SettingsService } from "../service/settings.service";
 import { Timer } from "./timer";
 
 export class BreakTimer implements Timer {
@@ -8,11 +10,20 @@ export class BreakTimer implements Timer {
     started: boolean = false;
     paused: boolean = false;
     pomodoroId: undefined;
+    public minutes: number;
+    private sub?: Subscription;
 
-    constructor(private component: MainComponent, 
-    public minutes: number) { }
+    constructor(private component: MainComponent, private settings: SettingsService) { 
+        this.minutes = this.settings.defaultBreakLength;
+        this.sub = this.settings.settingsPublisher.subscribe(
+            (settings: Settings) => {
+                this.minutes = settings.defaultBreakLength
+            }
+        );
+    }
 
     start() {
+        this.sub?.unsubscribe();
         this.started = true;
         this.current = 0;
         this.interval = interval(1000).subscribe((x) => this.step());
