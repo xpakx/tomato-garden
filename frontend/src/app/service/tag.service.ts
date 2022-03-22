@@ -26,4 +26,9 @@ export class TagService {
     let username  = this.getUsername();
     return this.http.post<Tag>(`${this.apiServerUrl}/${username}/tag`, request);
   }
+
+  public delete(tagId: number): Observable<any> {
+    let username  = this.getUsername();
+    return this.http.delete<any>(`${this.apiServerUrl}/${username}/tag/${tagId}`);
+  }
 }

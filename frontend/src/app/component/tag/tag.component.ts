@@ -58,4 +58,16 @@ export class TagComponent implements OnInit {
   choose(tag: Tag) {
     this.choiceEvent.emit(tag);
   }
+
+  delete(tag: Tag) {
+    this.service.delete(tag.id).subscribe(
+      (response: any, tagId: number = tag.id) => {
+        this.tags = this.tags.filter((a) => a.id != tagId);
+      },
+      (error: HttpErrorResponse) => {
+        this.message = error.error.message;
+        this.invalid = true;
+      }
+    );
+  }
 }
