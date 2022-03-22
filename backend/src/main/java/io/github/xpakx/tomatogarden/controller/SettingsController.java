@@ -8,10 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
@@ -23,6 +20,15 @@ public class SettingsController {
     public ResponseEntity<UserSettings> updateSettings(@RequestBody SettingsRequest request, @PathVariable String username) {
         return new ResponseEntity<>(
                 service.updateSettings(request, username),
+                HttpStatus.OK
+        );
+    }
+
+    @PreAuthorize("#username.equals(authentication.principal.username)")
+    @GetMapping("/{username}/settings")
+    public ResponseEntity<UserSettings> getSettings(@PathVariable String username) {
+        return new ResponseEntity<>(
+                service.getSettings(username),
                 HttpStatus.OK
         );
     }

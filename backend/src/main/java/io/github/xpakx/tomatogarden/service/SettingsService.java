@@ -24,4 +24,8 @@ public class SettingsService {
         settings.setDefaultFocus(request.isFocus());
         return settingsRepository.save(settings);
     }
+
+    public UserSettings getSettings(String username) {
+        return getSettingsByUsername(username);
+    }
 }
