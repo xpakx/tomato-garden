@@ -10,6 +10,10 @@ export class AppComponent {
   hideMenu: boolean = true;
   showLogin: boolean = true;
 
+  constructor() {
+    this.showLogin = !this.logged;
+  }
+
   switchMenu() {
     this.hideMenu = !this.hideMenu;
   }
@@ -20,5 +24,9 @@ export class AppComponent {
 
   closeLogIn() {
     this.showLogin = false;
+  }
+
+  get logged(): boolean {
+    return localStorage.getItem("username") != undefined;
   }
 }
