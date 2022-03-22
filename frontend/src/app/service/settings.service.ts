@@ -24,7 +24,7 @@ export class SettingsService {
     )
   }
 
-  private saveSettings(response: Settings) {
+  saveSettings(response: Settings) {
     this.defaultBreakLength = response.defaultBreakLength;
     this.defaultPomodoroLength = response.defaultPomodoroLength;
     this.defaultFocus = response.defaultFocus;

@@ -1,0 +1,31 @@
+<div class="modal-container">
+    <div class="modal">
+        <hr />
+        <h2>Settings</h2>
+        <div class="card">
+            <form id="form" [formGroup]="form">
+                <div>
+                    <label for="pomodoro">Pomodoro length</label>
+                </div>
+                <input formControlName="pomodoro" />
+    
+                <div>
+                    <label for="break">Break length</label>
+                </div>
+                <input formControlName="break" />
+    
+                <div>
+                    <label>Deep focus</label>
+                </div>
+                <div class="switch" [class.switched]="focus" (click)="switchFocus()">
+                    <span class="switch-handle"></span>
+                </div>
+            </form>
+        </div>
+        
+        <div class="modal-buttons">
+            <button class="outlined-btn" (click)="close()">Cancel</button>
+            <button class="btn" [class.blocked]="form.invalid" (click)="ok()">Ok</button>
+        </div>
+    </div>
+</div>

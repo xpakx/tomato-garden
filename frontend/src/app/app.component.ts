@@ -14,7 +14,7 @@ export class AppComponent {
   constructor(private settings: SettingsService) {
     this.showLogin = !this.logged;
     if(this.logged) {
-      settings.load();
+      this.settings.load();
     }
   }
 
@@ -32,5 +32,15 @@ export class AppComponent {
 
   get logged(): boolean {
     return localStorage.getItem("username") != undefined;
+  }
+
+  showSettings: boolean = false;
+
+  openSettings() {
+    this.showSettings = true;
+  }
+
+  closeSettings() {
+    this.showSettings = false;
   }
 }

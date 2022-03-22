@@ -9,6 +9,7 @@ import { LoginModalComponent } from './component/login-modal/login-modal.compone
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JwtModule } from '@auth0/angular-jwt';
 import { TagComponent } from './component/tag/tag.component';
+import { SettingsComponent } from './component/settings/settings.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -20,7 +21,8 @@ export function tokenGetter() {
     MenuComponent,
     MainComponent,
     LoginModalComponent,
-    TagComponent
+    TagComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
