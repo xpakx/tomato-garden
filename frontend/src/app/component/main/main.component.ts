@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Tag } from 'src/app/entity/tag';
 import { PomodoroService } from 'src/app/service/pomodoro.service';
+import { SettingsService } from 'src/app/service/settings.service';
 import { BreakTimer } from 'src/app/utils/break-timer';
 import { PomodoroTimer } from 'src/app/utils/pomodoro-timer';
 import { Timer } from 'src/app/utils/timer';
@@ -12,21 +13,30 @@ import { Timer } from 'src/app/utils/timer';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
-  minutes: number = 25;
-  breakMinutes: number = 5;
   pomodoroId?: number;
   @Output() menuEvent = new EventEmitter<boolean>();
   message: string = "";
   invalid: boolean = false;
-  deepFocus: boolean = false;
 
   break: boolean = false;
   audio: HTMLAudioElement = new Audio("../../../assets/sound.mp3");
 
   timer: Timer;
 
-  constructor(private service: PomodoroService) {
+  constructor(private service: PomodoroService, private settings: SettingsService) {
     this.timer = this.newPomodoro();
+  }
+
+  get minutes(): number {
+    return this.settings.defaultPomodoroLength;
+  }
+
+  get breakMinutes(): number {
+    return this.settings.defaultPomodoroLength;
+  }
+
+  get deepFocus(): boolean {
+    return this.settings.defaultFocus;
   }
 
   start() {

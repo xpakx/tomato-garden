@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from 'src/app/service/authentication.service';
+import { SettingsService } from 'src/app/service/settings.service';
 import { Token } from '../../entity/token';
 
 @Component({
@@ -17,7 +18,7 @@ export class LoginModalComponent implements OnInit {
   @Output() closeEvent = new EventEmitter<boolean>();
   showRegister: boolean = false;
 
-  constructor(private fb: FormBuilder, private service: AuthenticationService) { 
+  constructor(private fb: FormBuilder, private service: AuthenticationService, private settings: SettingsService) { 
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
@@ -109,6 +110,9 @@ export class LoginModalComponent implements OnInit {
   private saveCredentials(response: Token) {
     localStorage.setItem("token", response.token);
     localStorage.setItem("username", response.username);
+    this.settings.defaultBreakLength = response.defaultBreakLength;
+    this.settings.defaultPomodoroLength = response.defaultPomodoroLength;
+    this.settings.defaultFocus = response.defaultFocus;
     this.closeEvent.emit(true);
   }
 }
