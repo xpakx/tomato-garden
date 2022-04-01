@@ -11,6 +11,8 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { TagComponent } from './component/tag/tag.component';
 import { SettingsComponent } from './component/settings/settings.component';
 import { ErrorInterceptor } from './utils/error.interceptor';
+import { TimelineModalComponent } from './component/timeline-modal/timeline-modal.component';
+import { GardenModalComponent } from './component/garden-modal/garden-modal.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -23,7 +25,9 @@ export function tokenGetter() {
     MainComponent,
     LoginModalComponent,
     TagComponent,
-    SettingsComponent
+    SettingsComponent,
+    TimelineModalComponent,
+    GardenModalComponent
   ],
   imports: [
     BrowserModule,
