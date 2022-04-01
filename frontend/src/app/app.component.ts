@@ -53,4 +53,14 @@ export class AppComponent {
   closeTimeline() {
     this.showTimeline = false;
   }
+
+  showGarden: boolean = false;
+
+  openGarden() {
+    this.showGarden = true;
+  }
+
+  closeGarden() {
+    this.showGarden = false;
+  }
 }

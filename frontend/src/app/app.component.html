@@ -1,7 +1,7 @@
 <div class="container">
 		
   <div class="menu" [class.hidden]="hideMenu">
-    <app-menu (settingsEvent)="openSettings()" (timelineEvent)="openTimeline()"></app-menu>
+    <app-menu (settingsEvent)="openSettings()" (timelineEvent)="openTimeline()" (gardenEvent)="openGarden()"></app-menu>
   </div>
 
   <div class="window-container">
@@ -12,3 +12,4 @@
 <app-login-modal (closeEvent)="closeLogIn()" *ngIf="showLogin"></app-login-modal>
 <app-settings (closeEvent)="closeSettings()" *ngIf="showSettings"></app-settings>
 <app-timeline-modal (closeEvent)="closeTimeline()" *ngIf="showTimeline"></app-timeline-modal>
+<app-garden-modal (closeEvent)="closeGarden()" *ngIf="showGarden"></app-garden-modal>

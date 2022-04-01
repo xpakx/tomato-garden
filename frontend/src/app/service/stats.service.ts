@@ -18,7 +18,7 @@ export class StatsService {
     return localStorage.getItem("username");
   }
 
-  public getSettings():  Observable<StatsResponse> {
+  public getStats():  Observable<StatsResponse> {
     let username  = this.getUsername();
     return this.http.get<StatsResponse>(`${this.apiServerUrl}/${username}/stats`);
   }

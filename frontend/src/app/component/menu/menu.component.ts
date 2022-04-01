@@ -9,6 +9,7 @@ export class MenuComponent implements OnInit {
 
   @Output() settingsEvent = new EventEmitter<boolean>();
   @Output() timelineEvent = new EventEmitter<boolean>();
+  @Output() gardenEvent = new EventEmitter<boolean>();
 
   constructor() { }
 
@@ -21,5 +22,9 @@ export class MenuComponent implements OnInit {
 
   openTimeline(): void {
     this.timelineEvent.emit(true);
+  }
+
+  openGarden(): void {
+    this.gardenEvent.emit(true);
   }
 }
