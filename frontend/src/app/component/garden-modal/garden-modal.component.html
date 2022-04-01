@@ -3,6 +3,17 @@
         <hr />
         <h2>Garden</h2>
         <div class="card">
+            <form [formGroup]="form">
+                <div>
+                    <label for="after">After</label>
+                </div>
+                <input type="date" formControlName="after">
+                <div>
+                    <label for="before">Before</label>
+                </div>
+                <input type="date" formControlName="before">
+                <button class="outlined-btn" (click)="apply()">Apply</button>
+              </form>
             <span>succeed: {{succeed}}</span>
             <span>failed: {{failed}}</span>
         </div>
