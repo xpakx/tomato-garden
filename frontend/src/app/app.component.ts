@@ -31,7 +31,7 @@ export class AppComponent {
   }
 
   get logged(): boolean {
-    return localStorage.getItem("username") != undefined;
+    return localStorage.getItem("username") != null;
   }
 
   showSettings: boolean = false;
