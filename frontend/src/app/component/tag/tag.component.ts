@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Tag } from 'src/app/entity/tag';
 import { TagService } from 'src/app/service/tag.service';
@@ -14,6 +14,7 @@ export class TagComponent implements OnInit {
   public message: string = '';
   @Output() closeEvent = new EventEmitter<boolean>();
   @Output() choiceEvent = new EventEmitter<Tag>();
+  @Input() disableCreation = false;
   form: FormGroup;
   tags: Tag[] = [];
 

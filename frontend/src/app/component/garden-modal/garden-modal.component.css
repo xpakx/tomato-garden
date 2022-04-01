@@ -1,1 +1,22 @@
 @import '../css/modal.css';
+
+.tag {
+	font-size: 12px;
+	border: 1px solid #5db075;
+	padding: 3px 5px;
+	border-radius: 12px; 
+	display: flex;
+	align-items: center;
+	margin-bottom: 5px;
+}
+
+.tag .tag-icon {
+	font-size: 7px;
+	color: #e66771;
+	margin-right: 3px;
+}
+
+.tag .tag-name {
+	color: #a6a6a6;
+	margin-right: 3px;
+}

@@ -12,6 +12,16 @@
                     <label for="before">Before</label>
                 </div>
                 <input type="date" formControlName="before">
+                <button class="tag" (click)="openTag()">
+                    <ng-container *ngIf="tag">
+                      <span class="tag-icon"><i class="fa fa-circle" [style]="'color:' + tag.color"></i></span> 
+                      <span class="tag-name">{{ tag.name }}</span>
+                    </ng-container>
+                    <ng-container *ngIf="!tag">
+                      <span class="tag-icon"><i class="fa fa-circle"></i></span> 
+                      <span class="tag-name">No tag</span>
+                    </ng-container>
+                  </button>
                 <button class="outlined-btn" (click)="apply()">Apply</button>
               </form>
             <span>succeed: {{succeed}}</span>
@@ -23,3 +33,5 @@
         </div>
     </div>
 </div>
+
+<app-tag (closeEvent)="closeTag()" (choiceEvent)="changeTag($event)" [disableCreation]="true" *ngIf="showTag"></app-tag>

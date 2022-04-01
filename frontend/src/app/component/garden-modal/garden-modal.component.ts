@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StatsResponse } from 'src/app/entity/stats-response';
+import { Tag } from 'src/app/entity/tag';
 import { StatsService } from 'src/app/service/stats.service';
 
 @Component({
@@ -38,7 +39,7 @@ export class GardenModalComponent implements OnInit {
     let afterDate = new Date(this.form.controls.after.value);
     let beforeDate = new Date(this.form.controls.before.value);
     this.service.getStats({
-      tagId: undefined, 
+      tagId: this.tag ? this.tag.id : undefined, 
       after: afterDate, 
       before: beforeDate}).subscribe(
       (response: StatsResponse) => {
@@ -51,5 +52,21 @@ export class GardenModalComponent implements OnInit {
 
   close(): void {
     this.closeEvent.emit(true);
+  }
+
+  showTag: boolean = false;
+  tag: Tag | undefined;
+
+  openTag() {
+    this.showTag = true;
+  }
+
+  closeTag() {
+    this.showTag = false;
+  }
+
+  changeTag(tag: Tag) {
+    this.tag = tag;
+    this.closeTag();
   }
 }
