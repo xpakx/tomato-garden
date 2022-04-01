@@ -27,7 +27,7 @@ export class ErrorInterceptor implements HttpInterceptor {
   private testAuthorization(error: HttpErrorResponse) {
     if (error.status === 401) {
       localStorage.removeItem("token");
-      localStorage.removeItem("user_id");
+      localStorage.removeItem("username");
     }
   }
 }
