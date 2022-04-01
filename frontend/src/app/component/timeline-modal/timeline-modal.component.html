@@ -3,7 +3,9 @@
         <hr />
         <h2>Timeline</h2>
         <div class="card">
-            
+            <div class="event" *ngFor="let pomodoro of pomodoros">
+                {{pomodoro.start}} - {{pomodoro.finish}}
+            </div>
         </div>
         
         <div class="modal-buttons">
