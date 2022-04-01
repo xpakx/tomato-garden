@@ -13,7 +13,7 @@
                 </button>
             </div>
         </div>
-        <div class="card">
+        <div class="card" *ngIf="!disableCreation">
             <form id="form" [formGroup]="form">
                 <div>
                     <label for="name">Name</label>
