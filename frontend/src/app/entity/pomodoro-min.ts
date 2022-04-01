@@ -3,6 +3,6 @@ export interface PomodoroMin {
     failed: boolean;
     succeed: boolean;
     start: Date;
-    finish: Date;
+    finish: Date | undefined;
     minutes: number;
 }

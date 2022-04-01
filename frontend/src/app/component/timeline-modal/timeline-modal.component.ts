@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Page } from 'src/app/service/page';
-import { PomodoroMin } from 'src/app/service/pomodoro-min';
+import { Page } from 'src/app/entity/page';
+import { PomodoroMin } from 'src/app/entity/pomodoro-min';
 import { StatsService } from 'src/app/service/stats.service';
 
 @Component({
@@ -19,6 +19,20 @@ export class TimelineModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.service.getTimeline().subscribe(
+      (response: Page<PomodoroMin>) => {
+        this.page = response.number;
+        this.totalPages = response.totalPages;
+        this.pomodoros = response.content;
+      },
+      (error: HttpErrorResponse) => {}
+    )
+  }
+
+  loadPage(page: number): void {
+    if(!(page>=0 && page<this.totalPages)) {
+      return;
+    }
+    this.service.getTimelineByPage(page).subscribe(
       (response: Page<PomodoroMin>) => {
         this.page = response.number;
         this.totalPages = response.totalPages;

@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { StatsResponse } from '../entity/stats-response';
-import { Page } from './page';
-import { PomodoroMin } from './pomodoro-min';
+import { Page } from '../entity/page';
+import { PomodoroMin } from '../entity/pomodoro-min';
 
 @Injectable({
   providedIn: 'root'

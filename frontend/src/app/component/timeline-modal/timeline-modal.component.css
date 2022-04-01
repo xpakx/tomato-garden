@@ -1,1 +1,17 @@
 @import '../css/modal.css';
+
+.plant {
+    width: 50px;
+}
+
+.failed {
+    background-color: darkred;
+}
+
+.succeed {
+    background-color: greenyellow;
+}
+
+.event {
+    display: flex;
+}
