@@ -32,7 +32,7 @@ public class StatsService {
         Long userId = getIdByUsername(username);
         return statsRepository.findByOwnerId(
                 userId,
-                PageRequest.of(page, 10, Sort.by("start"))
+                PageRequest.of(page, 10, Sort.by("start").descending())
         );
     }
 
