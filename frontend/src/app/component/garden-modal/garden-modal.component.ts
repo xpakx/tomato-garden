@@ -10,13 +10,16 @@ import { StatsService } from 'src/app/service/stats.service';
 })
 export class GardenModalComponent implements OnInit {
   @Output() closeEvent = new EventEmitter<boolean>();
+  failed: number = 0;
+  succeed: number = 0;
 
   constructor(private service: StatsService) { }
 
   ngOnInit(): void {
-    this.service.getStats().subscribe(
+    this.service.getStats({tagId: undefined, after: undefined, before: undefined}).subscribe(
       (response: StatsResponse) => {
-
+        this.failed = response.failed;
+        this.succeed = response.succeed;
       },
       (error: HttpErrorResponse) => {}
     )
