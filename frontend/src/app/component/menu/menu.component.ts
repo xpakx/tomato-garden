@@ -8,6 +8,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 export class MenuComponent implements OnInit {
 
   @Output() settingsEvent = new EventEmitter<boolean>();
+  @Output() timelineEvent = new EventEmitter<boolean>();
 
   constructor() { }
 
@@ -16,5 +17,9 @@ export class MenuComponent implements OnInit {
 
   openSettings(): void {
     this.settingsEvent.emit(true);
+  }
+
+  openTimeline(): void {
+    this.timelineEvent.emit(true);
   }
 }

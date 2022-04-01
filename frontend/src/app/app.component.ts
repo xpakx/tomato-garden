@@ -43,4 +43,14 @@ export class AppComponent {
   closeSettings() {
     this.showSettings = false;
   }
+
+  showTimeline: boolean = false;
+
+  openTimeline() {
+    this.showTimeline = true;
+  }
+
+  closeTimeline() {
+    this.showTimeline = false;
+  }
 }
