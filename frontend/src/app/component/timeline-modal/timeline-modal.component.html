@@ -4,8 +4,15 @@
         <h2>Timeline</h2>
         <div class="card">
             <div class="event" *ngFor="let pomodoro of pomodoros" [class.succeed]="pomodoro.succeed" [class.failed]="pomodoro.failed">
-                <div>
-                    <img class="plant" src="../../../assets/tomato5.svg" />
+                <div class="tomato">
+                    <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <g class="base-timer__circle">
+                            <circle class="base-timer__path-elapsed" cx="50" cy="50" r="45" />
+                        </g>
+                    </svg>
+                    <div class="plant-container">
+                        <img class="plant" src="../../../assets/tomato5.svg" />
+                    </div>
                 </div>
                 <div>
                     <span>{{pomodoro.start | date: 'HH:mm dd MMM yyyy'}}</span>

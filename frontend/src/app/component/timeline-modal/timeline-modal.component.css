@@ -1,17 +1,65 @@
 @import '../css/modal.css';
 
+.tomato {
+	cursor: pointer;
+	position: relative;
+	height: 82px;
+	width: 82px;
+}
+
+.plant-container {
+	position: absolute;
+	height: 82px;
+	width: 82px;
+	top: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
 .plant {
-    width: 50px;
+	height: 50px;
+}
+
+.base-timer__circle {
+	fill: none;
+	stroke: none;
+}
+
+.base-timer__path-elapsed {
+	stroke-width: 4px;
+	stroke: #e8e8e8;
+}
+
+.failed .base-timer__path-elapsed {
+    stroke: rgb(219, 92, 92);
+}
+
+.succeed .base-timer__path-elapsed {
+    stroke: #5eb176;
 }
 
 .failed {
-    background-color: darkred;
+    background-color: rgb(201, 163, 163);
 }
 
 .succeed {
-    background-color: greenyellow;
+    background-color: rgb(190, 206, 166);
 }
 
 .event {
     display: flex;
+}
+
+.card {
+    height: 250px;
+    overflow-y: scroll;
+}
+
+.event {
+    margin: 5px 10px;
+    padding: 10px 5px;
+	border-radius: 25px;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25), 0 2px 2px rgba(0,0,0,0.22);
+
 }
