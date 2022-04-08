@@ -52,7 +52,7 @@
 }
 
 .card {
-    height: 250px;
+    max-height: 250px;
     overflow-y: scroll;
     width: 80%;
 }
@@ -75,4 +75,27 @@
 
 .info .fa {
     color: #e8e8e8;
+}
+
+.nav-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.nav-btn {
+	background-color: transparent;
+	color: #5db075;
+	border: none;
+	padding: 10px 20px;
+	font-weight: 500;
+    cursor: pointer;
+}
+
+.nav-btn.blocked {
+	color: #e8e8e8;
+}
+
+.nav-btn:hover {
+    opacity: 0.8;
 }

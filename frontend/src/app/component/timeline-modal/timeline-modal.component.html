@@ -3,6 +3,16 @@
         <hr />
         <h2>Timeline</h2>
         <div class="card">
+            <div class="nav-buttons">
+                <button class="nav-btn" [class.blocked]="page<=0" (click)="loadPage(page-1)">
+                    <i class="fa fa-circle-left"></i>
+                    Prev
+                </button>
+                <button class="nav-btn" [class.blocked]="page>=totalPages-1"  (click)="loadPage(page+1)">
+                    <i class="fa fa-circle-right"></i>
+                    Next
+                </button>
+            </div>
             <div class="event" *ngFor="let pomodoro of pomodoros" [class.succeed]="pomodoro.succeed" [class.failed]="pomodoro.failed">
                 <div class="tomato">
                     <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -33,8 +43,6 @@
                     </span>
                 </div>
             </div>
-            <button class="outlined-btn" [class.blocked]="page<=0" (click)="loadPage(page-1)">Prev</button>
-            <button class="outlined-btn" [class.blocked]="page>=totalPages"  (click)="loadPage(page+1)">Next</button>
         </div>
         
         <div class="modal-buttons">
