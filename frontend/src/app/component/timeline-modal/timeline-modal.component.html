@@ -14,9 +14,19 @@
                         <img class="plant" src="../../../assets/tomato5.svg" />
                     </div>
                 </div>
-                <div>
-                    <span>{{pomodoro.start | date: 'HH:mm dd MMM yyyy'}}</span>
-                    <span *ngIf="pomodoro.failed || pomodoro.succeed"> {{pomodoro.finish | date: 'HH:mm dd MMM yyyy'}}</span>
+                <div class="info">
+                    <span>
+                        <i class="fa fa-clock"></i>
+                        {{pomodoro.start | date: 'HH:mm dd MMM yyyy'}}
+                    </span>
+                    <span *ngIf="pomodoro.succeed && pomodoro.finish"> 
+                        <i class="fa fa-circle-check"></i>
+                        {{pomodoro.finish | date: 'HH:mm dd MMM yyyy'}}
+                    </span>
+                    <span *ngIf="pomodoro.failed && pomodoro.finish"> 
+                        <i class="fa fa-circle-xmark"></i>
+                        {{pomodoro.finish | date: 'HH:mm dd MMM yyyy'}}
+                    </span>
                 </div>
             </div>
             <button class="outlined-btn" [class.blocked]="page<=0" (click)="loadPage(page-1)">Prev</button>
