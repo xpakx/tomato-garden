@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { MenuComponent } from './component/menu/menu.component';
@@ -39,7 +40,8 @@ export function tokenGetter() {
         tokenGetter: tokenGetter,
         allowedDomains: ['localhost:8080', '192.168.50.118:8080'],
       }
-    })
+    }),
+    BrowserAnimationsModule
   ],
   providers: [
     {
