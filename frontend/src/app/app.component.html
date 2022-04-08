@@ -1,7 +1,9 @@
 <div class="container">
 		
-  <div class="menu" [class.hidden]="hideMenu">
-    <app-menu (settingsEvent)="openSettings()" (timelineEvent)="openTimeline()" (gardenEvent)="openGarden()"></app-menu>
+  <div class="menu" *ngIf="!hideMenu" @slideMenuAnimation>
+    <div class="menu-content">
+      <app-menu (settingsEvent)="openSettings()" (timelineEvent)="openTimeline()" (gardenEvent)="openGarden()"></app-menu>
+    </div>
   </div>
 
   <div class="window-container">
