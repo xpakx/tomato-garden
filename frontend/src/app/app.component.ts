@@ -13,8 +13,8 @@ import { SettingsService } from './service/settings.service';
         group([
           animate('.15s cubic-bezier(.4,0,1,1)', style({ width: '!' })),
           query('.menu-content',[
-            style({ transform: 'translateX(-150%)', width: '250px' }),
-            animate('.15s cubic-bezier(.4,0,1,1)', style({ transform: 'translateX(0)', width: '250px' }))
+            style({ transform: 'translateX(-110%)' }),
+            animate('.15s cubic-bezier(.4,0,1,1)', style({ transform: 'translateX(0)' }))
           ])
         ])
       ]),
@@ -24,7 +24,7 @@ import { SettingsService } from './service/settings.service';
           animate('.15s cubic-bezier(.4,0,1,1)', style({ width: '0' })),
           query('.menu-content',[
             style({ transform: 'translateX(0)' }),
-            animate('.15s cubic-bezier(.4,0,1,1)', style({ transform: 'translateX(-150%)' }))
+            animate('.15s cubic-bezier(.4,0,1,1)', style({ transform: 'translateX(-110%)' }))
           ])
         ])
       ]),
