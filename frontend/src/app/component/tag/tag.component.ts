@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Tag } from 'src/app/entity/tag';
 import { TagService } from 'src/app/service/tag.service';
@@ -21,7 +21,7 @@ export class TagComponent implements OnInit {
   constructor(private fb: FormBuilder, private service: TagService) { 
     this.form = this.fb.group({
       name: ['', Validators.required],
-      color: ['', Validators.required]
+      color: ['#656565', Validators.required]
     });
   }
 
@@ -70,5 +70,18 @@ export class TagComponent implements OnInit {
         this.invalid = true;
       }
     );
+  }
+
+  @ViewChild('colorInput') colorInput?: ElementRef;
+  
+  get buttonColor(): string {
+    let color: string = this.form.controls.color.value;
+    return color ? color : '#efefef';
+  }
+
+  selectColor(): void {
+    if(this.colorInput) {
+      this.colorInput.nativeElement.click();
+    }
   }
 }

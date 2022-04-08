@@ -16,16 +16,20 @@
         <div class="card" *ngIf="!disableCreation">
             <form id="form" [formGroup]="form">
                 <div>
-                    <label for="name">Name</label>
+                    <label for="name">New tag</label>
                 </div>
-                <input class="name" formControlName="name"/>
-    
-                <div>
-                    <label for="color">Color</label>
-                </div>
-                <input class="color" formControlName="color" type="color" />
+            
+                <div class="name-container">
+                    <button class='color-btn' (click)='selectColor()' [style]="'color: '+ buttonColor">
+                        <i class="fa fa-circle"></i>
+                    </button>
+                    <input class="name" formControlName="name"/>
+                    <button class="add-btn" [class.blocked]="form.invalid" (click)="add()">
+                        <i class="fa fa-circle-check"></i>
+                    </button>
+                </div>    
+                <input #colorInput class="color" formControlName="color" type="color" />
             </form>
-            <button class="btn add-btn" [class.blocked]="form.invalid" (click)="add()">Add</button>
         </div>
         
         <div class="modal-buttons">
