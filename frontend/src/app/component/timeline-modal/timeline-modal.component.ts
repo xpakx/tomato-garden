@@ -45,4 +45,10 @@ export class TimelineModalComponent implements OnInit {
   close(): void {
     this.closeEvent.emit(true);
   }
+
+  getTomato(pomodoro: PomodoroMin): string {
+    if(pomodoro.failed) { return 'tomato0'; }
+    if(pomodoro.succeed) { return 'tomato5'; }
+    return 'tomato0'
+  }
 }
