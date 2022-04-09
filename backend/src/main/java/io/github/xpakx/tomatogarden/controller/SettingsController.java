@@ -1,6 +1,5 @@
 package io.github.xpakx.tomatogarden.controller;
 
-import io.github.xpakx.tomatogarden.entity.Pomodoro;
 import io.github.xpakx.tomatogarden.entity.UserSettings;
 import io.github.xpakx.tomatogarden.entity.dto.SettingsRequest;
 import io.github.xpakx.tomatogarden.service.SettingsService;
