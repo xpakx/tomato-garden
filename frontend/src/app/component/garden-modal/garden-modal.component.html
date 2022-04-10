@@ -4,28 +4,48 @@
         <h2>Garden</h2>
         <div class="card">
             <form [formGroup]="form" id="form">
-                <div>
-                    <label for="after">After</label>
+                <div class="dates">
+                  <span>
+                    <div>
+                      <label for="after">After</label>
+                    </div>
+                    <input type="date" formControlName="after">
+                  </span>
+                  <span>
+                    <div>
+                        <label for="before">Before</label>
+                    </div>
+                    <input type="date" formControlName="before">
+                  </span>
                 </div>
-                <input type="date" formControlName="after">
-                <div>
-                    <label for="before">Before</label>
-                </div>
-                <input type="date" formControlName="before">
-                <button class="tag" (click)="openTag()">
-                    <ng-container *ngIf="tag">
-                      <span class="tag-icon"><i class="fa fa-circle" [style]="'color:' + tag.color"></i></span> 
-                      <span class="tag-name">{{ tag.name }}</span>
-                    </ng-container>
-                    <ng-container *ngIf="!tag">
-                      <span class="tag-icon"><i class="fa fa-circle"></i></span> 
-                      <span class="tag-name">No tag</span>
-                    </ng-container>
+                <div class="bottom-form">
+                  <button class="tag" (click)="openTag()">
+                      <ng-container *ngIf="tag">
+                        <span class="tag-icon"><i class="fa fa-circle" [style]="'color:' + tag.color"></i></span> 
+                        <span class="tag-name">{{ tag.name }}</span>
+                      </ng-container>
+                      <ng-container *ngIf="!tag">
+                        <span class="tag-icon"><i class="fa fa-circle"></i></span> 
+                        <span class="tag-name">No tag</span>
+                      </ng-container>
+                    </button>
+                  <button class="apply-btn" (click)="apply()">
+                    <i class="fa fa-refresh"></i>
+                    Apply changes
                   </button>
-                <button class="outlined-btn" (click)="apply()">Apply</button>
+                </div>
               </form>
-            <span>succeed: {{succeed}}</span>
-            <span>failed: {{failed}}</span>
+
+              <div class="counters">
+                <div class="counter succeed">
+                  <span class="counter-icon"><i class="fa fa-circle-check"></i></span>
+                  <span class="count">{{succeed}}</span>
+                </div>
+                <div class="counter failed">
+                  <span class="counter-icon"><i class="fa fa-circle-xmark"></i></span>
+                  <span class="count">{{failed}}</span>
+                </div>
+              </div>
         </div>
         
         <div class="modal-buttons">
