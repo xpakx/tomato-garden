@@ -43,15 +43,15 @@ export class AppComponent {
     }
   }
 
-  switchMenu() {
+  switchMenu(): void {
     this.hideMenu = !this.hideMenu;
   }
 
-  toLogIn() {
+  toLogIn(): void {
     this.showLogin = true;
   }
 
-  closeLogIn() {
+  closeLogIn(): void {
     this.showLogin = false;
   }
 
@@ -61,31 +61,31 @@ export class AppComponent {
 
   showSettings: boolean = false;
 
-  openSettings() {
+  openSettings(): void {
     this.showSettings = true;
   }
 
-  closeSettings() {
+  closeSettings(): void {
     this.showSettings = false;
   }
 
   showTimeline: boolean = false;
 
-  openTimeline() {
+  openTimeline(): void {
     this.showTimeline = true;
   }
 
-  closeTimeline() {
+  closeTimeline(): void {
     this.showTimeline = false;
   }
 
   showGarden: boolean = false;
 
-  openGarden() {
+  openGarden(): void {
     this.showGarden = true;
   }
 
-  closeGarden() {
+  closeGarden(): void {
     this.showGarden = false;
   }
 }

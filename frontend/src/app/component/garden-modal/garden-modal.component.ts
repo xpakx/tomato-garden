@@ -57,11 +57,11 @@ export class GardenModalComponent implements OnInit {
   showTag: boolean = false;
   tag: Tag | undefined;
 
-  openTag() {
+  openTag(): void {
     this.showTag = true;
   }
 
-  closeTag() {
+  closeTag(): void {
     this.showTag = false;
   }
 

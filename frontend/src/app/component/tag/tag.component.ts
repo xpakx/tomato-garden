@@ -37,7 +37,7 @@ export class TagComponent implements OnInit {
     );
   }
 
-  add() {
+  add(): void {
     if(this.form.invalid) {
       return;
     }
@@ -52,15 +52,15 @@ export class TagComponent implements OnInit {
     );
   }
 
-  close() {
+  close(): void {
     this.closeEvent.emit(false);
   }
   
-  choose(tag: Tag) {
+  choose(tag: Tag): void {
     this.choiceEvent.emit(tag);
   }
 
-  delete(tag: Tag) {
+  delete(tag: Tag): void {
     this.service.delete(tag.id).subscribe(
       (response: any, tagId: number = tag.id) => {
         this.tags = this.tags.filter((a) => a.id != tagId);

@@ -1,5 +1,3 @@
-import { Tag } from "../entity/tag";
-
 export interface Timer {
     minutes: number;
     current: number;

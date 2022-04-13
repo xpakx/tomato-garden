@@ -33,7 +33,7 @@ export class MainComponent implements OnInit {
     this.deepFocus = this.settings.defaultFocus;
   }
 
-  start() {
+  start():void {
     this.timer.start();
   }
 
@@ -151,11 +151,11 @@ export class MainComponent implements OnInit {
   showTag: boolean = false;
   tag: Tag | undefined;
 
-  openTag() {
+  openTag(): void {
     this.showTag = true;
   }
 
-  closeTag() {
+  closeTag(): void {
     this.showTag = false;
   }
 

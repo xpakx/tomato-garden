@@ -22,7 +22,7 @@ export class BreakTimer implements Timer {
         );
     }
 
-    start() {
+    start(): void {
         this.sub?.unsubscribe();
         this.started = true;
         this.current = 0;

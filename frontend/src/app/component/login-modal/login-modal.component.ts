@@ -41,7 +41,7 @@ export class LoginModalComponent implements OnInit {
     return this.showRegister ? "Register" : "Login";
   }
 
-  ok() {
+  ok(): void {
     if(!this.valid) {
       return;
     }
@@ -52,7 +52,7 @@ export class LoginModalComponent implements OnInit {
     }
   }
 
-  close() {
+  close(): void {
     this.closeEvent.emit(false);
   }
 
@@ -107,7 +107,7 @@ export class LoginModalComponent implements OnInit {
     }
   }
 
-  private saveCredentials(response: Token) {
+  private saveCredentials(response: Token): void {
     localStorage.setItem("token", response.token);
     localStorage.setItem("username", response.username);
     this.settings.defaultBreakLength = response.defaultBreakLength;

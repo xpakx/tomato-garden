@@ -15,7 +15,7 @@ export class SettingsService {
 
   constructor(private service: DefaultSettingsService) { }
 
-  load() {
+  load(): void {
     this.service.getSettings().subscribe(
       (response: Settings) => {
         this.saveSettings(response);
@@ -26,7 +26,7 @@ export class SettingsService {
     )
   }
 
-  saveSettings(response: Settings) {
+  saveSettings(response: Settings): void {
     this.defaultBreakLength = response.defaultBreakLength;
     this.defaultPomodoroLength = response.defaultPomodoroLength;
     this.defaultFocus = response.defaultFocus;

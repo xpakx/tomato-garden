@@ -26,7 +26,7 @@ export class SettingsComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  close() {
+  close(): void {
     this.closeEvent.emit(false);
   }
 
@@ -34,7 +34,7 @@ export class SettingsComponent implements OnInit {
     this.focus = !this.focus;
   }
 
-  ok() {
+  ok(): void {
     if(this.form.invalid) {
       return;
     }
