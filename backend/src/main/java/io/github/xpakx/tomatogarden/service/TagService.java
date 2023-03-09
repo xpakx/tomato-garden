@@ -7,6 +7,7 @@ import io.github.xpakx.tomatogarden.entity.dto.TagDto;
 import io.github.xpakx.tomatogarden.entity.dto.TagRequest;
 import io.github.xpakx.tomatogarden.error.PomodoroNotFoundException;
 import io.github.xpakx.tomatogarden.error.TagNotFoundException;
+import io.github.xpakx.tomatogarden.error.UserNotFoundException;
 import io.github.xpakx.tomatogarden.repository.PomodoroRepository;
 import io.github.xpakx.tomatogarden.repository.TagRepository;
 import io.github.xpakx.tomatogarden.repository.UserRepository;
@@ -25,7 +26,7 @@ public class TagService {
     private Long getIdByUsername(String username) {
         return userRepository
                 .findByUsername(username)
-                .orElseThrow()
+                .orElseThrow(UserNotFoundException::new)
                 .getId();
     }
 
